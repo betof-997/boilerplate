@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { BadgeCheckIcon, ChevronsUpDownIcon, LogOutIcon } from 'lucide-react';
 import { DropdownMenu } from '@/components/dropdown-menu';
 import { Sidebar } from '@/components/sidebar';
-import { authClient } from '@/lib/authClient';
+import { authClient } from '@/lib/auth/authClient';
 import { Route as AuthenticatedRoute } from '../../../route';
 
 export const SidebarUserMenu = () => {

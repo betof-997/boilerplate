@@ -2,8 +2,8 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
-import { authClient } from '@/lib/authClient';
-import { authSessionQueryOptions } from '@/lib/authServer';
+import { authClient } from '@/lib/auth/authClient';
+import { authSessionQueryOptions } from '@/lib/auth/authServer';
 import { appConfig } from '@/utils/appConfig';
 
 export const Route = createFileRoute('/')({

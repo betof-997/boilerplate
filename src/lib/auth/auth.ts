@@ -8,7 +8,7 @@ import {
 	userTable,
 	verificationTable,
 } from '@/db/tables';
-import { envServer } from '@/env/envServer';
+import { envServer } from '@/lib/env/envServer';
 
 export const auth = betterAuth({
 	baseURL: envServer.BETTER_AUTH_URL,

@@ -1,16 +1,14 @@
-import { sql } from 'drizzle-orm';
 import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { userTable } from './userTable';
+import { userIdColumn } from './userTable';
+import { createdAtColumn, idColumn, updatedAtColumn } from './utils';
 
 export const accountTable = sqliteTable(
 	'account',
 	{
-		id: text('id').primaryKey(),
+		id: idColumn(),
 		accountId: text('account_id').notNull(),
 		providerId: text('provider_id').notNull(),
-		userId: text('user_id')
-			.notNull()
-			.references(() => userTable.id, { onDelete: 'cascade' }),
+		userId: userIdColumn(),
 		accessToken: text('access_token'),
 		refreshToken: text('refresh_token'),
 		idToken: text('id_token'),
@@ -22,13 +20,8 @@ export const accountTable = sqliteTable(
 		}),
 		scope: text('scope'),
 		password: text('password'),
-		createdAt: integer('created_at', { mode: 'timestamp_ms' })
-			.notNull()
-			.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`),
-		updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
-			.notNull()
-			.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
-			.$onUpdate(() => new Date()),
+		createdAt: createdAtColumn(),
+		updatedAt: updatedAtColumn(),
 	},
 	(table) => [index('account_userId_idx').on(table.userId)],
 );

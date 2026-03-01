@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 import { Sidebar } from '@/components/sidebar';
-import { authSessionQueryOptions } from '@/lib/authServer';
+import { authSessionQueryOptions } from '@/lib/auth/authServer';
 import { AuthenticatedSidebar } from './-lib/components/authenticated-sidebar';
 
 export const Route = createFileRoute('/_authenticated')({
