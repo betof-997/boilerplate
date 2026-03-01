@@ -156,7 +156,7 @@ export const useDataTable = <TData>({
 	});
 
 	const table = useReactTable({
-		data,
+		data: data ?? [],
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: isServerPaginationEnabled
@@ -189,7 +189,7 @@ export const useDataTable = <TData>({
 	});
 
 	const showLoading =
-		isLoading || (isServerPaginationEnabled && data.length === 0);
+		isLoading || (isServerPaginationEnabled && (data?.length ?? 0) === 0);
 	const hasToolbarActions = (toolbarActions?.length ?? 0) > 0;
 
 	return {

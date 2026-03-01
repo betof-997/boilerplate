@@ -1,4 +1,5 @@
 import type { MutationOptions } from '@tanstack/react-query';
+import type { SuccessResponse } from './serverFnsUtils';
 
 export type WithUserId = {
 	userId: string;
@@ -26,4 +27,12 @@ export const invalidateOnSuccess = (
 	return (_, __, ___, context) => {
 		context.client.invalidateQueries({ queryKey });
 	};
+};
+
+export const handleQueryFn = async <TData>(
+	queryFn: () => Promise<SuccessResponse<TData>>,
+): Promise<TData> => {
+	const result = await queryFn();
+
+	return result.data;
 };

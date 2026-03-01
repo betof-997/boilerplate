@@ -13,28 +13,27 @@ export type HTTPStatusCode =
 	(typeof HTTP_STATUS_CODES)[keyof typeof HTTP_STATUS_CODES];
 
 export type SuccessResponse<T> = {
-	success: true;
-	statusCode?: HTTPStatusCode;
 	data: T;
+	message?: string;
 };
 
 export type ErrorResponse = {
-	success: false;
-	statusCode?: HTTPStatusCode;
 	message: string;
 };
 
 type CreateSuccessResponseParams<T> = {
 	data: T;
+	message?: string;
 	statusCode?: HTTPStatusCode;
 };
 export const createSuccessResponse = <T>({
 	data,
+	message,
 	statusCode = HTTP_STATUS_CODES.OK,
 }: CreateSuccessResponseParams<T>): SuccessResponse<T> => {
 	setResponseStatus(statusCode);
 
-	return { success: true, statusCode, data };
+	return { data, message };
 };
 
 type CreateErrorResponseParams = {
@@ -54,5 +53,5 @@ export const createErrorResponse = ({
 		errorMessage = error;
 	}
 
-	return { success: false, statusCode, message: errorMessage };
+	return { message: errorMessage };
 };

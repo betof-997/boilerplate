@@ -134,7 +134,7 @@ export type DataTableColumn<TData> =
 
 type DataTableSharedProps<TData> = {
 	columns: DataTableColumn<TData>[];
-	data: TData[];
+	data?: TData[];
 	isLoading?: boolean;
 	emptyMessage?: string;
 	className?: string;

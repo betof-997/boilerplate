@@ -10,6 +10,7 @@ import type {
 import type { QueryKeyGetAll } from '@/utils/queryOptionsUtils';
 import {
 	createQueryKeys,
+	handleQueryFn,
 	invalidateOnSuccess,
 } from '@/utils/queryOptionsUtils';
 
@@ -20,7 +21,8 @@ export const getAllClientsQueryOptions = ({ userId }: GetClientsParams) => {
 		queryKey: clientQueryKeys.getAll({
 			userId,
 		}),
-		queryFn: () => getClientsServerFn({ data: { userId } }),
+		queryFn: () =>
+			handleQueryFn(() => getClientsServerFn({ data: { userId } })),
 	});
 };
 
