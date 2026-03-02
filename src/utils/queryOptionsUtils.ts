@@ -5,6 +5,8 @@ export type WithUserId = {
 	userId: string;
 };
 
+export type QueryKeyBase = WithUserId;
+
 export type QueryKeyGetAll = WithUserId;
 
 export type QueryKeyGetById = WithUserId & {
@@ -16,8 +18,14 @@ type CreateQueryKeysParams = {
 };
 export const createQueryKeys = ({ baseKey }: CreateQueryKeysParams) => {
 	return {
-		getAll: ({ userId }: QueryKeyGetAll) => [baseKey, userId],
-		getById: ({ id, userId }: QueryKeyGetById) => [baseKey, userId, id],
+		base: ({ userId }: QueryKeyBase) => [baseKey, userId],
+		getAll: ({ userId }: QueryKeyGetAll) => [baseKey, userId, 'getAll'],
+		getById: ({ id, userId }: QueryKeyGetById) => [
+			baseKey,
+			userId,
+			id,
+			'getById',
+		],
 	};
 };
 
@@ -33,6 +41,14 @@ export const handleQueryFn = async <TData>(
 	queryFn: () => Promise<SuccessResponse<TData>>,
 ): Promise<TData> => {
 	const result = await queryFn();
+
+	return result.data;
+};
+
+export const handleMutationFn = async <TData>(
+	mutationFn: () => Promise<SuccessResponse<TData>>,
+): Promise<TData> => {
+	const result = await mutationFn();
 
 	return result.data;
 };

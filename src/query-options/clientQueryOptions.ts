@@ -64,5 +64,5 @@ export const deleteClientMutationOptions = ({ userId }: QueryKeyGetAll) =>
 	mutationOptions({
 		mutationFn: (params: DeleteClientParams) =>
 			deleteClientServerFn({ data: params }),
-		onSuccess: invalidateOnSuccess(clientQueryKeys.getAll({ userId })),
+		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
 	});
