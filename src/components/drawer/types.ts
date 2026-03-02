@@ -13,6 +13,8 @@ export type DrawerOverlayProps = ComponentProps<typeof DrawerPrimitive.Overlay>;
 
 export type DrawerContentProps = ComponentProps<typeof DrawerPrimitive.Content>;
 
+export type DrawerBodyProps = ComponentProps<'div'>;
+
 export type DrawerHeaderProps = ComponentProps<'div'>;
 
 export type DrawerFooterProps = ComponentProps<'div'>;

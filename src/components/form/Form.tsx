@@ -48,7 +48,7 @@ const FormRoot = ({
 		<FormRootContext.Provider value={formRootContextValue}>
 			<formApi.AppForm>
 				<form
-					className={cn('w-full', className)}
+					className={cn('w-full h-full', className)}
 					onSubmit={handleSubmit}
 				>
 					{children}

@@ -6,6 +6,7 @@ import { TextInput } from '@/components/text-input';
 import { createFormHook } from '@tanstack/react-form';
 import { fieldContext, formContext } from './contexts';
 import { FormInputWrapper } from './FormInputWrapper';
+import { Form } from '@/components/form';
 
 export { useFieldContext, useFormContext } from './contexts';
 
@@ -19,5 +20,10 @@ export const { useAppForm, withFieldGroup, withForm } = createFormHook({
 		Checkbox: FormInputWrapper(Checkbox),
 		Switch: FormInputWrapper(Switch),
 	},
-	formComponents: {},
+	formComponents: {
+		Root: Form.Root,
+		Set: Form.Set,
+		Group: Form.Group,
+		Separator: Form.Separator,
+	},
 });

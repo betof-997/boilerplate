@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import type {
+	DrawerBodyProps,
 	DrawerCloseProps,
 	DrawerContentProps,
 	DrawerDescriptionProps,
@@ -13,10 +14,11 @@ import type {
 	DrawerTriggerProps,
 } from './types';
 
-const Root = ({ ...props }: DrawerRootProps) => {
+const Root = ({ direction = 'right', ...props }: DrawerRootProps) => {
 	return (
 		<DrawerPrimitive.Root
 			data-slot='drawer'
+			direction={direction}
 			{...props}
 		/>
 	);
@@ -75,9 +77,22 @@ const Content = ({ className, children, ...props }: DrawerContentProps) => {
 				{...props}
 			>
 				<div className='bg-muted mt-4 h-1 w-[100px] rounded-full mx-auto hidden shrink-0 group-data-[vaul-drawer-direction=bottom]/drawer-content:block' />
+
 				{children}
 			</DrawerPrimitive.Content>
 		</Portal>
+	);
+};
+
+const Body = ({ className, children, ...props }: DrawerBodyProps) => {
+	return (
+		<div
+			data-slot='drawer-body'
+			className={cn('flex-1 px-4 flex flex-col h-full', className)}
+			{...props}
+		>
+			{children}
+		</div>
 	);
 };
 
@@ -86,7 +101,7 @@ const Header = ({ className, ...props }: DrawerHeaderProps) => {
 		<div
 			data-slot='drawer-header'
 			className={cn(
-				'gap-0.5 p-4 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-0.5 md:text-left flex flex-col',
+				'gap-0.5 py-2 my-2 px-2 mx-2 border-b border-border group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center md:gap-0.5 md:text-left flex flex-col',
 				className,
 			)}
 			{...props}
@@ -135,4 +150,5 @@ export const Drawer = {
 	Footer,
 	Title,
 	Description,
+	Body,
 };

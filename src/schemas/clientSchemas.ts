@@ -2,18 +2,39 @@ import { clientTable } from '@/db/tables';
 import { createInsertSchema, createSelectSchema } from 'drizzle-orm/zod';
 import z from 'zod';
 
-export const clientSelectSchema = createSelectSchema(clientTable);
-export type ClientSelect = z.infer<typeof clientSelectSchema>;
+export const selectClientSchema = createSelectSchema(clientTable);
+export type SelectClient = z.infer<typeof selectClientSchema>;
 
-export const clientInsertSchema = createInsertSchema(clientTable);
-export type ClientInsert = z.infer<typeof clientInsertSchema>;
+export const InsertClientSchema = createInsertSchema(clientTable);
+export type InsertClient = z.infer<typeof InsertClientSchema>;
 
 export const getClientsParamsSchema = z.object(
-	clientSelectSchema.pick({ userId: true }).shape,
+	selectClientSchema.pick({ userId: true }).shape,
 );
 export type GetClientsParams = z.infer<typeof getClientsParamsSchema>;
 
-export const createClientParamsSchema = z.object(
-	clientInsertSchema.omit({ id: true, createdAt: true, updatedAt: true }).shape,
+export const getClientByIdParamsSchema = z.object(
+	selectClientSchema.pick({ id: true, userId: true }).shape,
 );
-export type CreateClientParams = z.infer<typeof createClientParamsSchema>;
+export type GetClientByIdParams = z.infer<typeof getClientByIdParamsSchema>;
+
+export const ClientUpsertFormSchema = z.object({
+	name: z.string().min(1),
+	email: z.email(),
+});
+export type UpsertClientForm = z.infer<typeof ClientUpsertFormSchema>;
+
+export const insertClientParamsSchema = z
+	.object(ClientUpsertFormSchema.shape)
+	.extend(selectClientSchema.pick({ userId: true }).shape);
+export type InsertClientParams = z.infer<typeof insertClientParamsSchema>;
+
+export const updateClientParamsSchema = z
+	.object(ClientUpsertFormSchema.shape)
+	.extend(selectClientSchema.pick({ id: true, userId: true }).shape);
+export type UpdateClientParams = z.infer<typeof updateClientParamsSchema>;
+
+export const deleteClientParamsSchema = z.object(
+	selectClientSchema.pick({ id: true, userId: true }).shape,
+);
+export type DeleteClientParams = z.infer<typeof deleteClientParamsSchema>;
