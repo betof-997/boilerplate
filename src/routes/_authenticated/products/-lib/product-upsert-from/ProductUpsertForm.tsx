@@ -81,7 +81,12 @@ export const ProductUpsertForm = () => {
 					/>
 					<form.AppField
 						name='price'
-						children={(field) => <field.NumberInput label='Price' />}
+						children={(field) => (
+							<field.NumberInput
+								mode='currency'
+								label='Price'
+							/>
+						)}
 					/>
 				</form.Group>
 

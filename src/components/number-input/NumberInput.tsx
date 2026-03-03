@@ -10,6 +10,7 @@ import type { InputButton } from '../base-field/types';
 import { getInputButtonsLayout } from '../base-field/utils';
 import { useBaseField } from '../base-field/useBaseField';
 import type { NumberInputProps } from './types';
+import { getNumberInputModeProps } from './utils';
 
 const NumberInputIncrementIcon = ({ className, ...props }: LucideProps) => {
 	return (
@@ -35,28 +36,32 @@ const clampValue = (value: number, min: number, max: number) => {
 	return Math.min(Math.max(value, min), max);
 };
 
-export const NumberInput = ({
-	className,
-	label,
-	description,
-	errors,
-	showErrors,
-	disabled,
-	required,
-	readOnly,
-	buttons = [],
-	style: inputStyle,
-	onChange,
-	onBlur,
-	value: controlledValue,
-	defaultValue,
-	stepper = 1,
-	min = Number.NEGATIVE_INFINITY,
-	max = Number.POSITIVE_INFINITY,
-	onKeyDown,
-	id: providedId,
-	...props
-}: NumberInputProps) => {
+export const NumberInput = (baseProps: NumberInputProps) => {
+	const {
+		className,
+		label,
+		description,
+		errors,
+		showErrors,
+		disabled,
+		required,
+		readOnly,
+		buttons = [],
+		style: inputStyle,
+		onChange,
+		onBlur,
+		value: controlledValue,
+		defaultValue,
+		stepper = 1,
+		onKeyDown,
+		id: providedId,
+		mode = 'integer',
+		...props
+	} = baseProps;
+	const modeProps = getNumberInputModeProps(baseProps);
+	const min = Number(modeProps.min ?? Number.NEGATIVE_INFINITY);
+	const max = Number(modeProps.max ?? Number.POSITIVE_INFINITY);
+
 	const baseId = useId();
 	const id = providedId ?? baseId;
 
@@ -200,6 +205,7 @@ export const NumberInput = ({
 						onBlur={handleBlur}
 						onKeyDown={handleKeyDown}
 						{...inputProps}
+						{...modeProps}
 						{...props}
 					/>
 
