@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { getRootRouteHead } from './-lib/getRootRouteHead';
+import { Toaster } from '@/components/toaster';
 import { tanstackQueryDevtoolsConfig } from '../components/tanstack-query';
 import { themeFOUCScript } from '@/hooks/use-theme/useTheme';
 
@@ -32,6 +33,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body suppressHydrationWarning={true}>
 				{children}
+				<Toaster />
 
 				<TanStackDevtools
 					config={{
