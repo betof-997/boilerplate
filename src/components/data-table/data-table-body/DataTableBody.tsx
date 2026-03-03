@@ -31,7 +31,7 @@ export const DataTableBody = <TData,>({
 									key={cell.id}
 									className={meta?.cellClassName}
 								>
-								{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									{flexRender(cell.column.columnDef.cell, cell.getContext())}
 								</Table.Cell>
 							);
 						})}

@@ -11,7 +11,9 @@ export type DialogCloseProps = ComponentProps<typeof DialogPrimitive.Close>;
 
 export type DialogOverlayProps = ComponentProps<typeof DialogPrimitive.Overlay>;
 
-export type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
+export type DialogContentProps = ComponentProps<
+	typeof DialogPrimitive.Content
+> & {
 	showCloseButton?: boolean;
 };
 

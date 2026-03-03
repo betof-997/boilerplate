@@ -58,7 +58,7 @@ export const DataTableFooter = <TData,>({
 						<Button
 							type='button'
 							size='xs'
-							variant='secondary'	
+							variant='secondary'
 							isIcon={true}
 							className='h-7 px-2'
 							aria-label='Select page size'

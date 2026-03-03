@@ -3,7 +3,9 @@ import type * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
 export type DropdownMenuItemVariant = 'default' | 'destructive';
 
-export type DropdownMenuRootProps = ComponentProps<typeof DropdownMenuPrimitive.Root>;
+export type DropdownMenuRootProps = ComponentProps<
+	typeof DropdownMenuPrimitive.Root
+>;
 
 export type DropdownMenuPortalProps = ComponentProps<
 	typeof DropdownMenuPrimitive.Portal
@@ -56,7 +58,9 @@ export type DropdownMenuSeparatorProps = ComponentProps<
 
 export type DropdownMenuShortcutProps = ComponentProps<'span'>;
 
-export type DropdownMenuSubProps = ComponentProps<typeof DropdownMenuPrimitive.Sub>;
+export type DropdownMenuSubProps = ComponentProps<
+	typeof DropdownMenuPrimitive.Sub
+>;
 
 export type DropdownMenuSubTriggerProps = ComponentProps<
 	typeof DropdownMenuPrimitive.SubTrigger
