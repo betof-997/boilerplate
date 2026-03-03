@@ -8,6 +8,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { getRootRouteHead } from './-lib/getRootRouteHead';
 import { tanstackQueryDevtoolsConfig } from '../components/tanstack-query';
+import { themeFOUCScript } from '@/hooks/use-theme/useTheme';
 
 export type AppRouterContext = {
 	queryClient: QueryClient;
@@ -25,8 +26,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		<html lang='en'>
 			<head>
 				<HeadContent />
+
+				{/** biome-ignore lint/security/noDangerouslySetInnerHtml: this is a script that is used to set the theme and prevent FOUC */}
+				<script dangerouslySetInnerHTML={{ __html: themeFOUCScript }} />
 			</head>
-			<body>
+			<body suppressHydrationWarning={true}>
 				{children}
 
 				<TanStackDevtools
