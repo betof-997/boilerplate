@@ -1,35 +1,65 @@
-import { Slot } from '@radix-ui/react-slot';
-import { cn } from '@/lib/utils';
-import { buttonVariants } from './consts';
-import type { ButtonProps } from './types';
+import { Slot } from "@radix-ui/react-slot";
+import { LoaderCircleIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "./consts";
+import type { ButtonProps } from "./types";
+import { Tooltip } from "../tooltip";
 
 export const Button = ({
-	className,
-	variant,
-	size,
-	isOutlined,
-	isGhost,
-	isRounded,
-	asChild = false,
-	...props
+  className,
+  variant,
+  isOutlined,
+  size,
+  asChild = false,
+  disabled,
+  isLoading,
+  isIcon,
+  children,
+  tooltip,
+  ...props
 }: ButtonProps) => {
-	const Comp = asChild ? Slot : 'button';
+  const Comp = asChild ? Slot : "button";
+  const isDisabled = !!disabled || !!isLoading;
 
-	return (
-		<Comp
-			data-slot='button'
-			type='button'
-			className={cn(
-				buttonVariants({
-					variant,
-					size,
-					isOutlined,
-					isGhost,
-					isRounded,
-					className,
-				}),
-			)}
-			{...props}
-		/>
-	);
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <Comp
+          className={cn(
+            buttonVariants({
+              variant,
+              size,
+              isOutlined,
+              disabled: isDisabled,
+              isLoading,
+              isIcon,
+              className,
+            }),
+          )}
+          data-loading={isLoading}
+          data-slot="button"
+          disabled={isDisabled}
+          type="button"
+          {...props}
+        >
+          <div className="relative flex items-center justify-center">
+            <span
+              className={cn(
+                "flex items-center justify-center gap-2",
+                isLoading && "opacity-0",
+              )}
+            >
+              {children}
+            </span>
+
+            {isLoading && (
+              <LoaderCircleIcon className="absolute animate-spin size-4.5" />
+            )}
+          </div>
+        </Comp>
+      </Tooltip.Trigger>
+
+      {!!tooltip && <Tooltip.Content>{tooltip}</Tooltip.Content>}
+    </Tooltip.Root>
+  );
 };

@@ -26,7 +26,7 @@ export const DataTableToolbar = <TData,>({
 							key={`button-${index}`}
 							variant={action.variant}
 							isOutlined={action.isOutlined}
-							isGhost={action.isGhost}
+							isIcon={true}
 							disabled={action.disabled}
 							className={action.className}
 							onClick={() => action.onClick(actionContext)}
@@ -46,7 +46,7 @@ export const DataTableToolbar = <TData,>({
 								<Button
 									variant={action.variant}
 									isOutlined={action.isOutlined}
-									isGhost={action.isGhost}
+									isIcon={true}
 									disabled={action.disabled}
 									className={action.className}
 								>

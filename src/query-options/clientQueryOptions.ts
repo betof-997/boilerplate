@@ -13,7 +13,7 @@ import type {
   GetClientsParams,
   DeleteClientParams,
 } from "@/schemas/clientSchemas";
-import type { QueryKeyGetAll } from "@/utils/queryOptionsUtils";
+import type { QueryKeyBase } from "@/utils/queryOptionsUtils";
 import {
   createQueryKeys,
   handleMutationFn,
@@ -44,21 +44,21 @@ export const getClientByIdQueryOptions = ({
   });
 };
 
-export const createClientMutationOptions = ({ userId }: QueryKeyGetAll) =>
+export const createClientMutationOptions = ({ userId }: QueryKeyBase) =>
   mutationOptions({
     mutationFn: (params: InsertClientParams) =>
       handleMutationFn(() => createClientServerFn({ data: params })),
-    onSuccess: invalidateOnSuccess(clientQueryKeys.getAll({ userId })),
+    onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
   });
 
-export const updateClientMutationOptions = ({ userId }: QueryKeyGetAll) =>
+export const updateClientMutationOptions = ({ userId }: QueryKeyBase) =>
   mutationOptions({
     mutationFn: (params: UpdateClientParams) =>
       handleMutationFn(() => updateClientServerFn({ data: params })),
-    onSuccess: invalidateOnSuccess(clientQueryKeys.getAll({ userId })),
+    onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
   });
 
-export const deleteClientMutationOptions = ({ userId }: QueryKeyGetAll) =>
+export const deleteClientMutationOptions = ({ userId }: QueryKeyBase) =>
   mutationOptions({
     mutationFn: (params: DeleteClientParams) =>
       handleMutationFn(() => deleteClientServerFn({ data: params })),

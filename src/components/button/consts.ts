@@ -1,120 +1,114 @@
-import { cva } from 'class-variance-authority';
+import { cva } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
 
 export const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer",
-	{
-		variants: {
-			variant: {
-				primary:
-					'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80',
-				secondary:
-					'bg-secondary text-secondary-foreground hover:bg-secondary/90 active:bg-secondary/80',
-				destructive:
-					'bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
-				link: 'text-primary underline-offset-4 hover:underline',
-			},
-			size: {
-				xxs: 'h-5 rounded-md gap-1 px-1.5 text-[11px] has-[>svg]:px-1.5',
-				xs: 'h-7 rounded-md gap-1.5 px-2.5 text-xs has-[>svg]:px-2',
-				sm: 'h-8 rounded-md gap-1.5 px-3 text-xs has-[>svg]:px-2.5',
-				md: 'h-9 px-4 py-2 has-[>svg]:px-3',
-				lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
-			},
-			isRounded: {
-				true: 'rounded-full px-0 py-0',
-				false: '',
-			},
-			isOutlined: {
-				true: 'bg-transparent border',
-				false: '',
-			},
-			isGhost: {
-				true: 'bg-transparent border-none',
-				false: '',
-			},
-		},
-		compoundVariants: [
-			// outlined
-			{
-				variant: 'primary',
-				isOutlined: true,
-				className:
-					'border-primary text-primary hover:bg-primary/10 active:bg-primary/20',
-			},
-			{
-				variant: 'secondary',
-				isOutlined: true,
-				className:
-					'border-secondary-foreground text-secondary-foreground hover:bg-secondary-foreground/10 active:bg-secondary-foreground/20',
-			},
-			{
-				variant: 'destructive',
-				isOutlined: true,
-				className:
-					'border-destructive text-destructive hover:bg-destructive/10 active:bg-destructive/20',
-			},
-			{
-				variant: 'link',
-				isOutlined: true,
-				className:
-					'border-primary text-primary hover:bg-primary/10 active:bg-primary/20',
-			},
+  cn(
+    'flex items-center justify-center whitespace-nowrap rounded-lg transition-colors gap-2',
+    'font-semibold text-white-1 cursor-pointer',
+    'focus-visible:outline-none focus-visible:ring-4',
+    'border w-full h-max leading-none!',
+    '[&_svg:not([class*=size-])]:size-4',
+    '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+  ),
+  {
+    variants: {
+      variant: {
+        primary:
+          'bg-primary hover:bg-primary-600 border-primary hover:border-primary-600 focus-visible:ring-primary/25',
+        secondary:
+          'bg-secondary hover:bg-secondary-600 border-secondary hover:border-secondary-600 focus-visible:ring-secondary/25',
+        tertiary:
+          'bg-tertiary hover:bg-tertiary-600 border-tertiary hover:border-tertiary-600 focus-visible:border-tertiary focus-visible:ring-tertiary/25',
+        ghost:
+          'border-transparent bg-foreground/6 text-foreground/70 dark:text-foreground hover:bg-foreground/10 focus-visible:ring-foreground/10',
+        destructive:
+          'bg-danger border-danger hover:bg-danger-600 border-danger hover:border-danger-600 focus-visible:ring-danger/25',
+      },
+      isOutlined: {
+        true: 'hover:text-background',
+      },
+      disabled: {
+        true: 'opacity-65 cursor-not-allowed overflow-hidden',
+      },
+      isLoading: {
+        true: 'pointer-events-none',
+      },
+      size: {
+        xxs: 'py-1 px-3 text-xs',
+        xs: 'py-2 px-3.5 text-xs',
+        sm: 'py-2.5 px-4 text-sm',
+        md: 'py-3 px-4 text-sm',
+        lg: 'py-3 px-4.5 text-lg',
+      },
+      isIcon: {
+        true: 'p-0 rounded-full',
+      },
+    },
+    compoundVariants: [
+      // Outlined variants
+      {
+        isOutlined: true,
+        className: 'bg-transparent',
+      },
+      {
+        isOutlined: true,
+        variant: 'primary',
+        className: 'text-primary-600',
+      },
+      {
+        isOutlined: true,
+        variant: 'secondary',
+        className: 'text-secondary-600',
+      },
+      {
+        isOutlined: true,
+        variant: 'tertiary',
+        className: 'text-tertiary-600',
+      },
+      {
+        isOutlined: true,
+        variant: 'ghost',
+        className: 'hover:text-foreground',
+      },
+      {
+        isOutlined: true,
+        variant: 'destructive',
+        className: 'text-danger-600',
+      },
 
-			// ghost
-			{
-				variant: 'primary',
-				isGhost: true,
-				className: 'text-primary hover:bg-black/5 active:bg-black/10',
-			},
-			{
-				variant: 'secondary',
-				isGhost: true,
-				className:
-					'text-secondary-foreground hover:bg-secondary-foreground/5 active:bg-secondary-foreground/10',
-			},
-			{
-				variant: 'destructive',
-				isGhost: true,
-				className: 'text-destructive hover:bg-black/5 active:bg-black/10',
-			},
-			{
-				variant: 'link',
-				isGhost: true,
-				className: 'text-primary hover:bg-black/5 active:bg-black/10',
-			},
-
-			// rounded
-			{
-				size: 'xxs',
-				isRounded: true,
-				className: 'w-5 min-w-5',
-			},
-			{
-				size: 'xs',
-				isRounded: true,
-				className: 'w-7 min-w-7',
-			},
-			{
-				size: 'sm',
-				isRounded: true,
-				className: 'w-8 min-w-8',
-			},
-			{
-				size: 'md',
-				isRounded: true,
-				className: 'w-9 min-w-9',
-			},
-			{
-				size: 'lg',
-				isRounded: true,
-				className: 'w-10 min-w-10',
-			},
-		],
-		defaultVariants: {
-			variant: 'primary',
-			size: 'md',
-			isOutlined: false,
-			isGhost: false,
-		},
-	},
-);
+      // Icon size variants
+      {
+        isIcon: true,
+        size: 'xxs',
+        className: 'size-5 min-w-5 [&_svg:not([class*=size-])]:size-3',
+      },
+      {
+        isIcon: true,
+        size: 'xs',
+        className: 'size-6 min-w-6 [&_svg:not([class*=size-])]:size-4',
+      },
+      {
+        isIcon: true,
+        size: 'sm',
+        className: 'size-7 min-w-7 [&_svg:not([class*=size-])]:size-4',
+      },
+      {
+        isIcon: true,
+        size: 'md',
+        className: 'size-8 min-w-8 [&_svg:not([class*=size-])]:size-4.5',
+      },
+      {
+        isIcon: true,
+        size: 'lg',
+        className: 'size-9 min-w-9 [&_svg:not([class*=size-])]:size-5',
+      },
+    ],
+    defaultVariants: {
+      variant: 'primary',
+      size: 'sm',
+      isOutlined: false,
+      disabled: false,
+      isLoading: false,
+    },
+  },
+)

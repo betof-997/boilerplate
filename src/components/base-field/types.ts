@@ -70,7 +70,7 @@ export type InputButton = {
 	onClick: () => void;
 	label?: string;
 	canFocus?: boolean;
-} & Pick<ButtonProps, 'variant' | 'disabled' | 'isGhost' | 'isOutlined'>;
+} & Pick<ButtonProps, 'variant' | 'disabled' | 'isOutlined'>;
 
 export type UseBaseFieldParams = Pick<
 	BaseFieldInputProps<unknown>,

@@ -58,8 +58,8 @@ export const DataTableFooter = <TData,>({
 						<Button
 							type='button'
 							size='xs'
-							variant='secondary'
-							isGhost
+							variant='secondary'	
+							isIcon={true}
 							className='h-7 px-2'
 							aria-label='Select page size'
 						>
@@ -100,7 +100,7 @@ export const DataTableFooter = <TData,>({
 								type='button'
 								size='xs'
 								variant='secondary'
-								isGhost={!isCurrentPage}
+								isIcon={true}
 								isOutlined={isCurrentPage}
 								disabled={isCurrentPage}
 								onClick={() => table.setPageIndex(pageIndex)}
@@ -123,7 +123,7 @@ export const DataTableFooter = <TData,>({
 									type='button'
 									size='xs'
 									variant='secondary'
-									isGhost
+									isIcon={true}
 									className='h-7 min-w-7 px-2'
 									aria-label='Select page'
 								>

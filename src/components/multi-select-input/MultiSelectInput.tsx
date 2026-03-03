@@ -170,7 +170,6 @@ export const MultiSelectInput = ({
 		side: 'right',
 		icon: MultiSelectChevronIcon,
 		label: 'Toggle options',
-		isGhost: true,
 		onClick: () => {
 			setIsPopoverOpen((previousState) => !previousState);
 		},

@@ -55,7 +55,6 @@ const rowActions: DataTableRowAction<Product>[] = [
 		icon: Trash2Icon,
 		tooltip: 'Delete',
 		variant: 'destructive',
-		isGhost: true,
 		onClick: () => undefined,
 	},
 ];

@@ -22,9 +22,8 @@ export const DataTableFilter = <TData,>({
 			<Popover.Trigger asChild>
 				<Button
 					size='xxs'
-					isRounded={true}
+					isIcon={true}
 					variant='primary'
-					isGhost={!isFiltered}
 					isOutlined={isFiltered}
 					className={cn(
 						'shrink-0',
@@ -62,7 +61,6 @@ export const DataTableFilter = <TData,>({
 						type='button'
 						size='xs'
 						variant='primary'
-						isGhost={!isFiltered}
 						isOutlined={isFiltered}
 						onClick={() => {
 							column.setFilterValue('');
