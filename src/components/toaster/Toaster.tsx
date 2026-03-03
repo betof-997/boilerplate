@@ -39,6 +39,7 @@ export const Toaster = ({ className, ...props }: ToasterProps) => {
           toast: "cn-toast",
         },
       }}
+      position="top-right"
       {...props}
     />
   );
