@@ -223,9 +223,10 @@ const Trigger = ({ className, onClick, ...props }: SidebarTriggerProps) => {
 		<Button
 			data-sidebar='trigger'
 			data-slot='sidebar-trigger'
-			variant='ghost'
+			variant='secondary'
+			isOutlined={true}
 			isIcon={true}
-			className={cn("rounded-lg", className)}
+			className={cn('rounded-lg', className)}
 			onClick={(event) => {
 				onClick?.(event);
 				toggleSidebar();

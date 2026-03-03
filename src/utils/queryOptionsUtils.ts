@@ -39,11 +39,21 @@ export const invalidateOnSuccess = (
 };
 
 const handleError = (error: unknown) => {
+	let message = 'An unknown error occurred';
+
 	if (error instanceof Error) {
-		toast.error(error.message);
-	} else {
-		toast.error('An unknown error occurred');
+		message = error.message;
+	} else if (typeof error === 'string') {
+		message = error;
+	} else if (
+		typeof error === 'object' &&
+		error !== null &&
+		'message' in error
+	) {
+		message = String(error.message);
 	}
+
+	toast.error(message);
 };
 
 export const handleQueryFn = async <TData>(

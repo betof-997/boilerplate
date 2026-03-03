@@ -98,7 +98,8 @@ const Content = ({
 						asChild
 					>
 						<Button
-							variant='ghost'
+							variant='secondary'
+							isGhost={true}
 							isIcon={true}
 							size='sm'
 							className='absolute top-2 right-2'

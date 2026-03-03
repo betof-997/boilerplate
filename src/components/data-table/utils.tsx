@@ -31,7 +31,8 @@ export const createRowActionsColumn = <TData,>(
 						<Button
 							key={`button-${index}`}
 							size='xxs'
-							variant={action.variant ?? 'ghost'}
+							variant={action.variant ?? 'secondary'}
+							isGhost={action.isGhost ?? true}
 							isOutlined={action.isOutlined}
 							isIcon={true}
 							disabled={action.disabled}

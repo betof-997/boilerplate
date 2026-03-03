@@ -51,6 +51,12 @@ export const createErrorResponse = ({
 		errorMessage = error.message;
 	} else if (typeof error === 'string') {
 		errorMessage = error;
+	} else if (
+		typeof error === 'object' &&
+		error !== null &&
+		'message' in error
+	) {
+		errorMessage = String(error.message);
 	}
 
 	return { message: errorMessage };

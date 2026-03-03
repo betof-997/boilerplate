@@ -61,7 +61,7 @@ export const createClientServerFn = createServerFn()
 			if (emailExists) {
 				throw createErrorResponse({
 					statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
-					error: new Error('Email already in use'),
+					error: 'Email already in use',
 				});
 			}
 
@@ -101,7 +101,7 @@ export const updateClientServerFn = createServerFn()
 			if (emailExists) {
 				throw createErrorResponse({
 					statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
-					error: new Error('Email already in use'),
+					error: 'Email already in use',
 				});
 			}
 

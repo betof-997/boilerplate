@@ -28,6 +28,13 @@ export const useClientTableColumns = (): DataTableColumn<SelectClient>[] => {
 				style: 'email',
 			},
 		},
+		{
+			accessorKey: 'createdAt',
+			format: {
+				kind: 'date',
+				style: 'datetime',
+			},
+		},
 	];
 
 	return columns;

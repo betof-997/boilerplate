@@ -54,13 +54,18 @@ export type DataTableColumnMeta = {
 	cellClassName?: string;
 };
 
+type SharedButtonProps = Pick<
+	ButtonProps,
+	'variant' | 'isOutlined' | 'disabled' | 'isGhost'
+>;
+
 export type DataTableRowActionButton<TData> = {
 	type: 'button';
 	icon: LucideIcon;
 	tooltip: string;
 	onClick: (rowData: TData) => void;
 	className?: string;
-} & Pick<ButtonProps, 'variant' | 'isOutlined' | 'disabled'>;
+} & SharedButtonProps;
 
 export type DataTableRowActionDropdownItem<TData> = {
 	id?: string;
@@ -76,7 +81,7 @@ export type DataTableRowActionDropdown<TData> = {
 	tooltip?: string;
 	items: DataTableRowActionDropdownItem<TData>[];
 	className?: string;
-} & Pick<ButtonProps, 'variant' | 'isOutlined' | 'disabled'>;
+} & SharedButtonProps;
 
 export type DataTableRowActionOther = {
 	type: 'other';
@@ -99,7 +104,7 @@ export type DataTableToolbarActionButton<TData> = {
 	icon?: LucideIcon;
 	onClick: (params: DataTableToolbarActionOnClickParams<TData>) => void;
 	className?: string;
-} & Pick<ButtonProps, 'variant' | 'isOutlined' | 'disabled'>;
+} & SharedButtonProps;
 
 export type DataTableToolbarActionDropdownItem<TData> = {
 	id?: string;
@@ -115,7 +120,7 @@ export type DataTableToolbarActionDropdown<TData> = {
 	icon?: LucideIcon;
 	items: DataTableToolbarActionDropdownItem<TData>[];
 	className?: string;
-} & Pick<ButtonProps, 'variant' | 'isOutlined' | 'disabled'>;
+} & SharedButtonProps;
 
 export type DataTableToolbarActionOther = {
 	type: 'other';

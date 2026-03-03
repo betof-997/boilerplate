@@ -43,6 +43,8 @@ export type DataTableCulumnFormatConfig =
 	| DataTableCulumnFormatBooleanConfig
 	| DataTableCulumnFormatArrayConfig;
 
+export type DataTableFormatStyle = DataTableCulumnFormatConfig['style'];
+
 export type DataTableIdColumn<TData> = {
 	id: string;
 	accessorKey?: never;

@@ -25,6 +25,10 @@ export const ClientTable = () => {
 			isLoading={isFetching}
 			toolbarActions={toolbarActions}
 			rowActions={rowActions}
+			defaultSort={{
+				id: 'createdAt',
+				desc: true,
+			}}
 		/>
 	);
 };

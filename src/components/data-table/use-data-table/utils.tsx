@@ -9,7 +9,10 @@ import type {
 	DataTableFilterItem,
 	DataTableRowAction,
 } from '../types';
-import type { DataTableAccessorKeyColumn } from '../data-table-column-render/types';
+import type {
+	DataTableAccessorKeyColumn,
+	DataTableFormatStyle,
+} from '../data-table-column-render/types';
 import { createRowActionsColumn } from '../utils';
 import { DataTableColumnRender } from '../data-table-column-render';
 
@@ -81,6 +84,28 @@ const isAccessorKeyColumn = <TData,>(
 	return 'accessorKey' in column && column.accessorKey !== undefined;
 };
 
+const isMinWidthColumn = (style: DataTableFormatStyle) => {
+	if (!style) {
+		return false;
+	}
+
+	return ['id', 'email', 'phone'].includes(style);
+};
+
+const getColumnMeta = (style: DataTableFormatStyle) => {
+	if (!style) {
+		return undefined;
+	}
+	const isMinWidth = isMinWidthColumn(style);
+	if (!isMinWidth) {
+		return undefined;
+	}
+
+	return {
+		headerClassName: 'w-px pr-5',
+	};
+};
+
 type ResolveDataTableColumnParams<TData> = {
 	baseColumns: DataTableColumn<TData>[];
 	rowActions: DataTableRowAction<TData>[];
@@ -105,9 +130,11 @@ export const resolveDataTableColumn = <TData,>({
 		}
 
 		columns.push({
+			id: column.accessorKey,
 			accessorKey: column.accessorKey,
 			enableSorting: column.canSort,
 			enableHiding: column.canHide,
+			meta: getColumnMeta(column.format?.style),
 			cell: ({ row }) => (
 				<DataTableColumnRender
 					data={row.original}

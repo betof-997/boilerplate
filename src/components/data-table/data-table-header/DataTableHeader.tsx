@@ -43,11 +43,9 @@ export const DataTableHeader = <TData,>({
 												<Button
 													size='xxs'
 													isIcon={true}
-													variant={isSorted ? 'secondary' : 'ghost'}
-													isOutlined={isSorted}
-													className='shrink-0'
+													variant='secondary'
+													isGhost={!isSorted}
 													aria-label='Toggle column sorting'
-													title='Toggle column sorting'
 													onClick={header.column.getToggleSortingHandler()}
 												>
 													{sortState === 'asc' ? (

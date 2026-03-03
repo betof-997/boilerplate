@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 export const buttonVariants = cva(
 	cn(
 		'flex items-center justify-center whitespace-nowrap rounded-lg transition-colors gap-2',
-		'font-semibold text-foreground/80 cursor-pointer',
+		'font-semibold text-foreground cursor-pointer',
 		'focus-visible:outline-none focus-visible:ring-3',
 		'border w-fit h-max leading-none!',
 		'[&_svg:not([class*=size-])]:size-4',
@@ -16,16 +16,15 @@ export const buttonVariants = cva(
 				primary:
 					'bg-primary hover:bg-primary/80 border-primary hover:border-primary/80 focus-visible:ring-primary/25',
 				secondary:
-					'bg-secondary hover:bg-secondary/80 border-secondary hover:border-secondary/80 focus-visible:ring-secondary/25',
-				tertiary:
-					'bg-tertiary hover:bg-tertiary/80 border-tertiary hover:border-tertiary/80 focus-visible:border-tertiary focus-visible:ring-tertiary/25',
-				ghost:
-					'border-transparent bg-foreground/6 text-foreground/70 dark:text-foreground hover:bg-foreground/10 focus-visible:ring-foreground/10',
+					'bg-secondary hover:bg-secondary/80 border-secondary hover:border-secondary/80 focus-visible:ring-secondary',
 				destructive:
-					'bg-destructive border-destructive hover:bg-destructive/80 border-destructive hover:border-destructive/80 focus-visible:ring-destructive/25',
+					'bg-destructive text-background border-destructive hover:bg-destructive/80 border-destructive hover:border-destructive/80 focus-visible:ring-destructive/25',
 			},
 			isOutlined: {
-				true: 'hover:text-background',
+				true: 'bg-transparent hover:text-background',
+			},
+			isGhost: {
+				true: 'bg-transparent focus-visible:ring-foreground/5',
 			},
 			disabled: {
 				true: 'opacity-65 cursor-not-allowed overflow-hidden',
@@ -48,12 +47,8 @@ export const buttonVariants = cva(
 			// Outlined variants
 			{
 				isOutlined: true,
-				className: 'bg-transparent',
-			},
-			{
-				isOutlined: true,
 				variant: 'primary',
-				className: 'text-primary/80',
+				className: 'text-primary',
 			},
 			{
 				isOutlined: true,
@@ -62,18 +57,33 @@ export const buttonVariants = cva(
 			},
 			{
 				isOutlined: true,
-				variant: 'tertiary',
-				className: 'text-tertiary/80',
-			},
-			{
-				isOutlined: true,
-				variant: 'ghost',
-				className: 'hover:text-foreground',
-			},
-			{
-				isOutlined: true,
 				variant: 'destructive',
 				className: 'text-destructive/80',
+			},
+
+			// Ghost variants
+			{
+				isGhost: true,
+				variant: 'primary',
+				className: 'text-primary',
+			},
+			{
+				isGhost: true,
+				variant: 'secondary',
+				className: 'text-foreground/80 hover:text-foreground',
+			},
+			{
+				isGhost: true,
+				variant: 'destructive',
+				className: 'text-destructive/80',
+			},
+
+			// Ghost outlined variants
+			{
+				isGhost: true,
+				isOutlined: false,
+				className:
+					'border-transparent hover:border-transparent hover:bg-foreground/5',
 			},
 
 			// Icon size variants

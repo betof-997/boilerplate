@@ -55,110 +55,107 @@ export const DataTableFooter = <TData,>({
 			<div />
 
 			<div className='flex items-center gap-5'>
-			{shouldShowPageSizeSelector && (
-				<DropdownMenu.Root>
-					<DropdownMenu.Trigger asChild>
-						<Button
-							type='button'
-							size='xs'
-							variant='secondary'
-							className='h-7 px-2 w-min'
-							aria-label='Select page size'
-						>
-							Rows: {currentPageSize}
-						</Button>
-					</DropdownMenu.Trigger>
-
-					<DropdownMenu.Content align='start'>
-						<DropdownMenu.Label>Rows per page</DropdownMenu.Label>
-						<DropdownMenu.Separator />
-						<DropdownMenu.RadioGroup
-							value={`${currentPageSize}`}
-							onValueChange={(value) => {
-								table.setPageSize(Number(value));
-							}}
-						>
-							{selectablePageSizeOptions.map((pageSizeOption) => (
-								<DropdownMenu.RadioItem
-									key={pageSizeOption}
-									value={`${pageSizeOption}`}
-								>
-									{pageSizeOption}
-								</DropdownMenu.RadioItem>
-							))}
-						</DropdownMenu.RadioGroup>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-			)}
-
-			{shouldShowPagination && (
-				<div className='flex items-center justify-center gap-1'>
-					{pageIndexes.map((pageIndex) => {
-						const isCurrentPage = pageIndex === currentPageIndex;
-
-						return (
+				{shouldShowPageSizeSelector && (
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild>
 							<Button
-								key={pageIndex}
 								type='button'
 								size='xs'
 								variant='secondary'
-								isIcon={true}
-								isOutlined={isCurrentPage}
-								disabled={isCurrentPage}
-								onClick={() => table.setPageIndex(pageIndex)}
-								className={cn(
-									'h-7 min-w-7 px-2',
-									isCurrentPage && 'cursor-default',
-								)}
-								aria-label={`Go to page ${pageIndex + 1}`}
-								aria-current={isCurrentPage ? 'page' : undefined}
+								className='h-7 px-2 w-min'
+								aria-label='Select page size'
 							>
-								{pageIndex + 1}
+								Rows: {currentPageSize}
 							</Button>
-						);
-					})}
+						</DropdownMenu.Trigger>
 
-					{shouldShowEllipsis && (
-						<DropdownMenu.Root>
-							<DropdownMenu.Trigger asChild>
+						<DropdownMenu.Content align='start'>
+							<DropdownMenu.Label>Rows per page</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.RadioGroup
+								value={`${currentPageSize}`}
+								onValueChange={(value) => {
+									table.setPageSize(Number(value));
+								}}
+							>
+								{selectablePageSizeOptions.map((pageSizeOption) => (
+									<DropdownMenu.RadioItem
+										key={pageSizeOption}
+										value={`${pageSizeOption}`}
+									>
+										{pageSizeOption}
+									</DropdownMenu.RadioItem>
+								))}
+							</DropdownMenu.RadioGroup>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				)}
+
+				{shouldShowPagination && (
+					<div className='flex items-center justify-center gap-1'>
+						{pageIndexes.map((pageIndex) => {
+							const isCurrentPage = pageIndex === currentPageIndex;
+
+							return (
 								<Button
+									key={pageIndex}
 									type='button'
 									size='xs'
 									variant='secondary'
+									isGhost={!isCurrentPage}
 									isIcon={true}
-									className='h-7 min-w-7 px-2'
-									aria-label='Select page'
+									disabled={isCurrentPage}
+									onClick={() => table.setPageIndex(pageIndex)}
+									className={cn(isCurrentPage && 'cursor-default')}
+									aria-label={`Go to page ${pageIndex + 1}`}
+									aria-current={isCurrentPage ? 'page' : undefined}
 								>
-									...
+									{pageIndex + 1}
 								</Button>
-							</DropdownMenu.Trigger>
+							);
+						})}
 
-							<DropdownMenu.Content
-								align='center'
-								className='max-h-56 overflow-y-auto'
-							>
-								<DropdownMenu.Label>Select page</DropdownMenu.Label>
-								<DropdownMenu.Separator />
-								<DropdownMenu.RadioGroup
-									value={`${currentPageIndex}`}
-									onValueChange={(value) => {
-										table.setPageIndex(Number(value));
-									}}
+						{shouldShowEllipsis && (
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger asChild>
+									<Button
+										type='button'
+										size='xs'
+										variant='secondary'
+										isIcon={true}
+										className='h-7 min-w-7 px-2'
+										aria-label='Select page'
+									>
+										...
+									</Button>
+								</DropdownMenu.Trigger>
+
+								<DropdownMenu.Content
+									align='center'
+									className='max-h-56 overflow-y-auto'
 								>
-									{Array.from({ length: pageCount }).map((_, pageIndex) => (
-										<DropdownMenu.RadioItem
-											key={pageIndex}
-											value={`${pageIndex}`}
-										>
-											Page {pageIndex + 1}
-										</DropdownMenu.RadioItem>
-									))}
-								</DropdownMenu.RadioGroup>
-							</DropdownMenu.Content>
-						</DropdownMenu.Root>
-					)}
-				</div>
-			)}
+									<DropdownMenu.Label>Select page</DropdownMenu.Label>
+									<DropdownMenu.Separator />
+									<DropdownMenu.RadioGroup
+										value={`${currentPageIndex}`}
+										onValueChange={(value) => {
+											table.setPageIndex(Number(value));
+										}}
+									>
+										{Array.from({ length: pageCount }).map((_, pageIndex) => (
+											<DropdownMenu.RadioItem
+												key={pageIndex}
+												value={`${pageIndex}`}
+											>
+												Page {pageIndex + 1}
+											</DropdownMenu.RadioItem>
+										))}
+									</DropdownMenu.RadioGroup>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
+						)}
+					</div>
+				)}
 			</div>
 		</div>
 	);
