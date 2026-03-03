@@ -80,15 +80,36 @@ export const Checkbox = ({
 			{...props}
 		/>
 	);
+	const checkboxLoadingSkeleton = (
+		<div
+			data-slot='checkbox-skeleton'
+			aria-hidden='true'
+			className='bg-muted animate-pulse size-4 rounded-[4px]'
+		/>
+	);
 
 	if (!hasFieldContent) {
-		return checkboxControl;
+		return (
+			<BaseField.Control
+				loadingVariant='custom'
+				className='w-auto'
+				renderLoading={checkboxLoadingSkeleton}
+			>
+				{checkboxControl}
+			</BaseField.Control>
+		);
 	}
 
 	return (
 		<BaseField.Root>
 			<div className='flex items-center gap-2'>
-				{checkboxControl}
+				<BaseField.Control
+					loadingVariant='custom'
+					className='w-auto'
+					renderLoading={checkboxLoadingSkeleton}
+				>
+					{checkboxControl}
+				</BaseField.Control>
 
 				<BaseField.Label
 					htmlFor={id}

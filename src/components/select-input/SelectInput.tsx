@@ -54,35 +54,37 @@ export const SelectInput = <TItem extends InputItem>({
 		<BaseField.Root>
 			<BaseField.Label htmlFor={id}>{label}</BaseField.Label>
 
-			<Select.Root
-				items={items}
-				onValueChange={handleChange}
-				data-slot='input'
-				{...props}
-				id={id}
-			>
-				<Select.Input
-					placeholder={placeholder}
-					buttons={buttons}
-					{...inputProps}
-				/>
-				<Select.Content>
-					<Select.Empty>{emptyMessage}</Select.Empty>
+			<BaseField.Control>
+				<Select.Root
+					items={items}
+					onValueChange={handleChange}
+					data-slot='input'
+					{...props}
+					id={id}
+				>
+					<Select.Input
+						placeholder={placeholder}
+						buttons={buttons}
+						{...inputProps}
+					/>
+					<Select.Content>
+						<Select.Empty>{emptyMessage}</Select.Empty>
 
-					<Select.List>
-						{(item: TItem) => {
-							return (
-								<Select.Item
-									key={item.value}
-									value={item}
-								>
-									{itemRender?.(item) ?? item.label}
-								</Select.Item>
-							);
-						}}
-					</Select.List>
-				</Select.Content>
-			</Select.Root>
+						<Select.List>
+							{(item: TItem) => {
+								return (
+									<Select.Item
+										key={item.value}
+										value={item}
+									>
+										{itemRender?.(item) ?? item.label}
+									</Select.Item>
+								);
+							}}
+						</Select.List>
+					</Select.Content>
+				</Select.Root>
+			</BaseField.Control>
 
 			<BaseField.Description>{description}</BaseField.Description>
 			<BaseField.Error

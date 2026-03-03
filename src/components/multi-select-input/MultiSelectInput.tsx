@@ -180,10 +180,11 @@ export const MultiSelectInput = ({
 		<BaseField.Root>
 			<BaseField.Label htmlFor={id}>{label}</BaseField.Label>
 
-			<Popover.Root
-				open={isPopoverOpen}
-				onOpenChange={setIsPopoverOpen}
-			>
+			<BaseField.Control>
+				<Popover.Root
+					open={isPopoverOpen}
+					onOpenChange={setIsPopoverOpen}
+				>
 				<Popover.Trigger asChild>
 					<button
 						{...props}
@@ -430,7 +431,8 @@ export const MultiSelectInput = ({
 						</div>
 					</div>
 				</Popover.Content>
-			</Popover.Root>
+				</Popover.Root>
+			</BaseField.Control>
 
 			<BaseField.Description>{description}</BaseField.Description>
 			<BaseField.Error

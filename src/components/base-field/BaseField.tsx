@@ -4,12 +4,14 @@ import { inputButtonClassName, inputButtonsSideClassName } from './consts';
 import { Label } from '@/components/label';
 import { cn } from '@/lib/utils';
 import type {
+	BaseFieldControlProps,
 	BaseFieldDescriptionProps,
 	BaseFieldErrorProps,
 	BaseFieldInputButtonsProps,
 	BaseFieldLabelProps,
 	BaseFieldRootProps,
 } from './types';
+import { useFormRootContext } from '../form/utils';
 
 const Root = ({ className, ...props }: BaseFieldRootProps) => {
 	return (
@@ -22,6 +24,48 @@ const Root = ({ className, ...props }: BaseFieldRootProps) => {
 			)}
 			{...props}
 		/>
+	);
+};
+
+const Control = ({
+	className,
+	children,
+	isLoading: propIsLoading,
+	loadingVariant = 'box',
+	renderLoading,
+	...props
+}: BaseFieldControlProps) => {
+	const formRootContext = useFormRootContext();
+	const isLoading = propIsLoading ?? formRootContext?.isLoading ?? false;
+
+	if (!isLoading) {
+		return (
+			<div
+				data-slot='field-control'
+				className={cn('w-full', className)}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	}
+
+	return (
+		<div
+			data-slot='field-control'
+			className={cn('w-full', className)}
+			{...props}
+		>
+			{loadingVariant === 'custom' && renderLoading ? (
+				renderLoading
+			) : (
+				<div
+					data-slot='field-control-skeleton'
+					aria-hidden='true'
+					className='bg-muted animate-pulse h-8 w-full rounded-lg'
+				/>
+			)}
+		</div>
 	);
 };
 
@@ -177,6 +221,7 @@ const InputButtons = ({
 
 export const BaseField = {
 	Root,
+	Control,
 	Label: BaseFieldLabel,
 	Description,
 	Error: BaseFieldError,

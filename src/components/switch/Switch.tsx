@@ -60,15 +60,36 @@ export const Switch = ({
 			/>
 		</SwitchPrimitive.Root>
 	);
+	const switchLoadingSkeleton = (
+		<div
+			data-slot='switch-skeleton'
+			aria-hidden='true'
+			className='bg-muted animate-pulse h-[18.4px] w-[32px] rounded-full'
+		/>
+	);
 
 	if (!hasFieldContent) {
-		return switchControl;
+		return (
+			<BaseField.Control
+				loadingVariant='custom'
+				className='w-auto'
+				renderLoading={switchLoadingSkeleton}
+			>
+				{switchControl}
+			</BaseField.Control>
+		);
 	}
 
 	return (
 		<BaseField.Root>
 			<div className='flex items-center gap-2'>
-				{switchControl}
+				<BaseField.Control
+					loadingVariant='custom'
+					className='w-auto'
+					renderLoading={switchLoadingSkeleton}
+				>
+					{switchControl}
+				</BaseField.Control>
 
 				<BaseField.Label
 					htmlFor={id}

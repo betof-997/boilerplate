@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentType } from 'react';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
 import type { MouseEvent } from 'react';
 import type { LucideProps } from 'lucide-react';
 import type { ButtonProps } from '../button';
@@ -7,6 +7,12 @@ import type z from 'zod';
 import type { inputItemSchema } from './schemas';
 
 export type BaseFieldRootProps = ComponentProps<'div'>;
+
+export type BaseFieldControlProps = ComponentProps<'div'> & {
+	isLoading?: boolean;
+	loadingVariant?: 'box' | 'custom';
+	renderLoading?: ReactNode;
+};
 
 export type BaseFieldLabelProps = ComponentProps<typeof Label>;
 

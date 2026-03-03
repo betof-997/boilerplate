@@ -1,5 +1,9 @@
 import { Separator } from '@/components/separator';
+import { useFormContext } from '@/hooks/use-app-form';
 import { cn } from '@/lib/utils';
+import type { FormEvent } from 'react';
+import { useMemo } from 'react';
+import { Button } from '../button';
 import type {
 	FormCancelButtonProps,
 	FormGroupProps,
@@ -8,26 +12,8 @@ import type {
 	FormSetProps,
 	FormSubmitButtonProps,
 } from './types';
-import { createContext, useContext, useMemo } from 'react';
-import type { FormEvent } from 'react';
-import { useFormContext } from '@/hooks/use-app-form';
-import { Button } from '../button';
-
-type FormRootContextValue = {
-	isLoading: boolean;
-};
-
-const FormRootContext = createContext<FormRootContextValue | null>(null);
-
-export const useFormRootContext = () => {
-	const context = useContext(FormRootContext);
-
-	if (!context) {
-		throw new Error('useFormRootContext must be used within Form.Root');
-	}
-
-	return context;
-};
+import type { FormRootContextValue } from './utils';
+import { FormRootContext } from './utils';
 
 const FormRoot = ({
 	className,

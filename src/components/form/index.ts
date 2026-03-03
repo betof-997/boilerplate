@@ -6,3 +6,4 @@ export type {
 	FormSeparatorProps,
 	FormSetProps,
 } from './types';
+export { FormRootContext, useFormRootContext } from './utils';

@@ -46,39 +46,41 @@ export const TextInput = ({
 		<BaseField.Root>
 			<BaseField.Label htmlFor={id}>{label}</BaseField.Label>
 
-			<div className='relative w-full'>
-				<input
-					type={type}
-					data-slot='input'
-					value={value}
-					onChange={handleChange}
-					className={cn(
-						fieldInputVariants({
-							height: 'fixed',
-							focusMode: 'focusVisible',
-						}),
-						'placeholder:text-muted-foreground',
-						className,
-					)}
-					style={{ ...paddingStyle, ...inputStyle }}
-					{...inputProps}
-					{...props}
-					id={id}
-				/>
+			<BaseField.Control>
+				<div className='relative w-full'>
+					<input
+						type={type}
+						data-slot='input'
+						value={value}
+						onChange={handleChange}
+						className={cn(
+							fieldInputVariants({
+								height: 'fixed',
+								focusMode: 'focusVisible',
+							}),
+							'placeholder:text-muted-foreground',
+							className,
+						)}
+						style={{ ...paddingStyle, ...inputStyle }}
+						{...inputProps}
+						{...props}
+						id={id}
+					/>
 
-				<BaseField.InputButtons
-					buttons={buttons}
-					side='left'
-					disabled={disabled}
-					readOnly={readOnly}
-				/>
-				<BaseField.InputButtons
-					buttons={buttons}
-					side='right'
-					disabled={disabled}
-					readOnly={readOnly}
-				/>
-			</div>
+					<BaseField.InputButtons
+						buttons={buttons}
+						side='left'
+						disabled={disabled}
+						readOnly={readOnly}
+					/>
+					<BaseField.InputButtons
+						buttons={buttons}
+						side='right'
+						disabled={disabled}
+						readOnly={readOnly}
+					/>
+				</div>
+			</BaseField.Control>
 
 			<BaseField.Description>{description}</BaseField.Description>
 			<BaseField.Error
