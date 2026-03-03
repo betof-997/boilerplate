@@ -1,0 +1,1 @@
+export { ProductDeleteDialog } from './ProductDeleteDialog';

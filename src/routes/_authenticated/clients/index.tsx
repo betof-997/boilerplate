@@ -18,12 +18,12 @@ export const Route = createFileRoute('/_authenticated/clients/')({
 
 function ClientsPage() {
 	return (
-		<main className='p-8'>
+		<section>
 			<h1 className='text-2xl font-semibold'>Clients</h1>
 
 			<ClientTable />
 			<ClientUpsertDrawer />
 			<ClientDeleteDialog />
-		</main>
+		</section>
 	);
 }

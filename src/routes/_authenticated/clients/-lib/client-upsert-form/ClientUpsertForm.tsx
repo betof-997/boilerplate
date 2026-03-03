@@ -1,5 +1,5 @@
 import { useAppForm } from '@/hooks/use-app-form';
-import { ClientUpsertFormSchema } from '@/schemas/clientSchemas';
+import { clientUpsertFormSchema } from '@/schemas/clientSchemas';
 import { useClientUpsertFormDefaultValues } from './utils';
 import { Drawer } from '@/components/drawer';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -32,7 +32,7 @@ export const ClientUpsertForm = () => {
 	const form = useAppForm({
 		defaultValues,
 		validators: {
-			onChange: ClientUpsertFormSchema,
+			onChange: clientUpsertFormSchema,
 		},
 		onSubmit: async (values) => {
 			if (isCreating) {

@@ -18,19 +18,19 @@ export const getClientByIdParamsSchema = z.object(
 );
 export type GetClientByIdParams = z.infer<typeof getClientByIdParamsSchema>;
 
-export const ClientUpsertFormSchema = z.object({
+export const clientUpsertFormSchema = z.object({
 	name: z.string().min(1),
 	email: z.email(),
 });
-export type UpsertClientForm = z.infer<typeof ClientUpsertFormSchema>;
+export type UpsertClientForm = z.infer<typeof clientUpsertFormSchema>;
 
 export const insertClientParamsSchema = z
-	.object(ClientUpsertFormSchema.shape)
+	.object(clientUpsertFormSchema.shape)
 	.extend(selectClientSchema.pick({ userId: true }).shape);
 export type InsertClientParams = z.infer<typeof insertClientParamsSchema>;
 
 export const updateClientParamsSchema = z
-	.object(ClientUpsertFormSchema.shape)
+	.object(clientUpsertFormSchema.shape)
 	.extend(selectClientSchema.pick({ id: true, userId: true }).shape);
 export type UpdateClientParams = z.infer<typeof updateClientParamsSchema>;
 

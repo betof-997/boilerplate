@@ -113,7 +113,6 @@ export const updateClientServerFn = createServerFn()
 
 			return createSuccessResponse({
 				data: client[0],
-				statusCode: HTTP_STATUS_CODES.OK,
 				message: 'Client updated successfully',
 			});
 		} catch (error) {
@@ -125,11 +124,13 @@ export const deleteClientServerFn = createServerFn()
 	.inputValidator(deleteClientParamsSchema)
 	.handler(async ({ data: { id, userId } }) => {
 		try {
-			await db
+			const client = await db
 				.delete(clientTable)
-				.where(and(eq(clientTable.id, id), eq(clientTable.userId, userId)));
+				.where(and(eq(clientTable.id, id), eq(clientTable.userId, userId)))
+				.returning();
+
 			return createSuccessResponse({
-				data: null,
+				data: client[0],
 				message: 'Client deleted successfully',
 			});
 		} catch (error) {

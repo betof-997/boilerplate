@@ -31,7 +31,7 @@ function AuthenticatedLayout() {
 					<Sidebar.Trigger />
 				</div>
 
-				<div className='min-h-0 flex-1'>
+				<div className='min-h-0 flex-1 p-8'>
 					<Outlet />
 				</div>
 			</main>
