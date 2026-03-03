@@ -1,36 +1,13 @@
 import { cn } from '@/lib/utils';
-import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
-import type { LucideProps } from 'lucide-react';
-import { useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { NumericFormat } from 'react-number-format';
 import { BaseField } from '../base-field';
 import { fieldInputVariants } from '../base-field/consts';
-import type { InputButton } from '../base-field/types';
 import { getInputButtonsLayout } from '../base-field/utils';
 import { useBaseField } from '../base-field/useBaseField';
 import type { NumberInputProps } from './types';
 import { getNumberInputModeProps } from './utils';
-
-const NumberInputIncrementIcon = ({ className, ...props }: LucideProps) => {
-	return (
-		<ChevronUpIcon
-			strokeWidth={1.6}
-			className={cn('text-foreground/50', className)}
-			{...props}
-		/>
-	);
-};
-
-const NumberInputDecrementIcon = ({ className, ...props }: LucideProps) => {
-	return (
-		<ChevronDownIcon
-			strokeWidth={1.6}
-			className={cn('text-foreground/50', className)}
-			{...props}
-		/>
-	);
-};
 
 const clampValue = (value: number, min: number, max: number) => {
 	return Math.min(Math.max(value, min), max);
@@ -124,31 +101,8 @@ export const NumberInput = (baseProps: NumberInputProps) => {
 		syncValue(nextValue);
 	}, [disabled, max, min, readOnly, stepAmount, syncValue, value]);
 
-	const canIncrement = !disabled && !readOnly && value !== max;
-	const canDecrement = !disabled && !readOnly && value !== min;
-
-	const defaultButtons = useMemo<InputButton[]>(
-		() => [
-			{
-				side: 'right',
-				icon: NumberInputIncrementIcon,
-				label: 'Increase value',
-				onClick: handleIncrement,
-				disabled: !canIncrement,
-			},
-			{
-				side: 'right',
-				icon: NumberInputDecrementIcon,
-				label: 'Decrease value',
-				onClick: handleDecrement,
-				disabled: !canDecrement,
-			},
-		],
-		[canDecrement, canIncrement, handleDecrement, handleIncrement],
-	);
-	const inputButtons = [...buttons, ...defaultButtons];
 	const { paddingStyle } = getInputButtonsLayout({
-		buttons: inputButtons,
+		buttons,
 	});
 
 	const handleBlur = () => {
@@ -210,13 +164,13 @@ export const NumberInput = (baseProps: NumberInputProps) => {
 					/>
 
 					<BaseField.InputButtons
-						buttons={inputButtons}
+						buttons={buttons}
 						side='left'
 						disabled={disabled}
 						readOnly={readOnly}
 					/>
 					<BaseField.InputButtons
-						buttons={inputButtons}
+						buttons={buttons}
 						side='right'
 						disabled={disabled}
 						readOnly={readOnly}
