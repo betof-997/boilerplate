@@ -24,11 +24,11 @@ export const DataTableToolbar = <TData,>({
 					return (
 						<Button
 							key={`button-${index}`}
-							variant={action.variant}
+							variant={action.variant ?? 'primary'}
 							isOutlined={action.isOutlined}
-							isIcon={true}
 							disabled={action.disabled}
 							className={action.className}
+							size='sm'
 							onClick={() => action.onClick(actionContext)}
 						>
 							{ActionIcon ? <ActionIcon /> : null}

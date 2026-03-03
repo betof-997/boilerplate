@@ -154,9 +154,9 @@ const InputButtons = ({
 						tabIndex={button.canFocus ? 0 : -1}
 						size='xxs'
 						isIcon={true}
-						variant={button.variant}
+						variant={button.variant ?? 'ghost'}
 						disabled={disabled || readOnly || button.disabled}
-						isOutlined={button.isOutlined}
+						isOutlined={button.isOutlined ?? true}
 						className={inputButtonClassName}
 						aria-label={button.label ?? 'Input action'}
 						onClick={(event) => {

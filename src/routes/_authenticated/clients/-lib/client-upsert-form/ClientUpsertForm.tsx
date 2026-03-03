@@ -2,7 +2,6 @@ import { useAppForm } from '@/hooks/use-app-form';
 import { ClientUpsertFormSchema } from '@/schemas/clientSchemas';
 import { useClientUpsertFormDefaultValues } from './utils';
 import { Drawer } from '@/components/drawer';
-import { Button } from '@/components/button';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
 	createClientMutationOptions,
@@ -17,6 +16,8 @@ const clientsRouteApi = getRouteApi('/_authenticated/clients/');
 export const ClientUpsertForm = () => {
 	const user = useUser();
 	const { editId } = clientsRouteApi.useSearch();
+	const navigate = clientsRouteApi.useNavigate();
+	const isCreating = !editId;
 
 	const { data: client, isFetching: isLoadingClient } = useQuery({
 		...getClientByIdQueryOptions({
@@ -34,20 +35,25 @@ export const ClientUpsertForm = () => {
 			onChange: ClientUpsertFormSchema,
 		},
 		onSubmit: async (values) => {
-			if (editId) {
+			if (isCreating) {
+				await createClient({
+					name: values.value.name,
+					email: values.value.email,
+					userId: user.id,
+				});
+			} else {
 				await updateClient({
 					id: editId,
 					name: values.value.name,
 					email: values.value.email,
 					userId: user.id,
 				});
-			} else {
-				await createClient({
-					name: values.value.name,
-					email: values.value.email,
-					userId: user.id,
-				});
 			}
+
+			navigate({
+				to: '/clients',
+				search: { isCreating: undefined, editId: undefined },
+			});
 		},
 	});
 
@@ -80,8 +86,14 @@ export const ClientUpsertForm = () => {
 					/>
 				</form.Group>
 
-				<Drawer.Footer>
-					<Button type='submit'>Create</Button>
+				<Drawer.Footer className='justify-end'>
+					<Drawer.Close asChild>
+						<form.CancelButton />
+					</Drawer.Close>
+
+					<form.SubmitButton>
+						{isCreating ? 'Create' : 'Update'}
+					</form.SubmitButton>
 				</Drawer.Footer>
 			</Drawer.Body>
 		</form.Root>

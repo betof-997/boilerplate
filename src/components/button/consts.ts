@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils';
 export const buttonVariants = cva(
 	cn(
 		'flex items-center justify-center whitespace-nowrap rounded-lg transition-colors gap-2',
-		'font-semibold text-white-1 cursor-pointer',
-		'focus-visible:outline-none focus-visible:ring-4',
-		'border w-full h-max leading-none!',
+		'font-semibold text-foreground/80 cursor-pointer',
+		'focus-visible:outline-none focus-visible:ring-3',
+		'border w-fit h-max leading-none!',
 		'[&_svg:not([class*=size-])]:size-4',
 		'[&_svg]:pointer-events-none [&_svg]:shrink-0',
 	),
@@ -14,15 +14,15 @@ export const buttonVariants = cva(
 		variants: {
 			variant: {
 				primary:
-					'bg-primary hover:bg-primary-600 border-primary hover:border-primary-600 focus-visible:ring-primary/25',
+					'bg-primary hover:bg-primary/80 border-primary hover:border-primary/80 focus-visible:ring-primary/25',
 				secondary:
-					'bg-secondary hover:bg-secondary-600 border-secondary hover:border-secondary-600 focus-visible:ring-secondary/25',
+					'bg-secondary hover:bg-secondary/80 border-secondary hover:border-secondary/80 focus-visible:ring-secondary/25',
 				tertiary:
-					'bg-tertiary hover:bg-tertiary-600 border-tertiary hover:border-tertiary-600 focus-visible:border-tertiary focus-visible:ring-tertiary/25',
+					'bg-tertiary hover:bg-tertiary/80 border-tertiary hover:border-tertiary/80 focus-visible:border-tertiary focus-visible:ring-tertiary/25',
 				ghost:
 					'border-transparent bg-foreground/6 text-foreground/70 dark:text-foreground hover:bg-foreground/10 focus-visible:ring-foreground/10',
 				destructive:
-					'bg-danger border-danger hover:bg-danger-600 border-danger hover:border-danger-600 focus-visible:ring-danger/25',
+					'bg-destructive border-destructive hover:bg-destructive/80 border-destructive hover:border-destructive/80 focus-visible:ring-destructive/25',
 			},
 			isOutlined: {
 				true: 'hover:text-background',
@@ -35,10 +35,10 @@ export const buttonVariants = cva(
 			},
 			size: {
 				xxs: 'py-1 px-3 text-xs',
-				xs: 'py-2 px-3.5 text-xs',
-				sm: 'py-2.5 px-4 text-sm',
-				md: 'py-3 px-4 text-sm',
-				lg: 'py-3 px-4.5 text-lg',
+				xs: 'py-1.5 px-3.5 text-xs',
+				sm: 'py-2 px-3.5 text-sm',
+				md: 'py-2.5 px-3.5 text-sm',
+				lg: 'py-3 px-4 text-lg',
 			},
 			isIcon: {
 				true: 'p-0 rounded-full',
@@ -53,17 +53,17 @@ export const buttonVariants = cva(
 			{
 				isOutlined: true,
 				variant: 'primary',
-				className: 'text-primary-600',
+				className: 'text-primary/80',
 			},
 			{
 				isOutlined: true,
 				variant: 'secondary',
-				className: 'text-secondary-600',
+				className: 'text-foreground/80 hover:text-foreground',
 			},
 			{
 				isOutlined: true,
 				variant: 'tertiary',
-				className: 'text-tertiary-600',
+				className: 'text-tertiary/80',
 			},
 			{
 				isOutlined: true,
@@ -73,14 +73,14 @@ export const buttonVariants = cva(
 			{
 				isOutlined: true,
 				variant: 'destructive',
-				className: 'text-danger-600',
+				className: 'text-destructive/80',
 			},
 
 			// Icon size variants
 			{
 				isIcon: true,
 				size: 'xxs',
-				className: 'size-5 min-w-5 [&_svg:not([class*=size-])]:size-3',
+				className: 'size-5 min-w-5 [&_svg:not([class*=size-])]:size-3.5',
 			},
 			{
 				isIcon: true,

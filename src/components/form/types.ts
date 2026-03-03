@@ -24,3 +24,5 @@ export type FormSeparatorProps = ComponentProps<'div'> & {
 };
 
 export type FormSubmitButtonProps = ButtonProps;
+
+export type FormCancelButtonProps = ButtonProps;

@@ -43,7 +43,7 @@ export const DataTableHeader = <TData,>({
 												<Button
 													size='xxs'
 													isIcon={true}
-													variant='primary'
+													variant={isSorted ? 'secondary' : 'ghost'}
 													isOutlined={isSorted}
 													className='shrink-0'
 													aria-label='Toggle column sorting'

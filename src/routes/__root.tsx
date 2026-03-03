@@ -10,6 +10,7 @@ import { getRootRouteHead } from './-lib/getRootRouteHead';
 import { Toaster } from '@/components/toaster';
 import { tanstackQueryDevtoolsConfig } from '../components/tanstack-query';
 import { themeFOUCScript } from '@/hooks/use-theme/useTheme';
+import { Tooltip } from '@/components/tooltip';
 
 export type AppRouterContext = {
 	queryClient: QueryClient;
@@ -32,8 +33,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<script dangerouslySetInnerHTML={{ __html: themeFOUCScript }} />
 			</head>
 			<body suppressHydrationWarning={true}>
-				{children}
-				<Toaster />
+				<Tooltip.Provider>
+					{children}
+					<Toaster />
+				</Tooltip.Provider>
 
 				<TanStackDevtools
 					config={{

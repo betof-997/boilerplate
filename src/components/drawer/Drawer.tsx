@@ -14,11 +14,16 @@ import type {
 	DrawerTriggerProps,
 } from './types';
 
-const Root = ({ direction = 'right', ...props }: DrawerRootProps) => {
+const Root = ({
+	direction = 'right',
+	autoFocus = true,
+	...props
+}: DrawerRootProps) => {
 	return (
 		<DrawerPrimitive.Root
 			data-slot='drawer'
 			direction={direction}
+			autoFocus={autoFocus}
 			{...props}
 		/>
 	);
@@ -88,7 +93,7 @@ const Body = ({ className, children, ...props }: DrawerBodyProps) => {
 	return (
 		<div
 			data-slot='drawer-body'
-			className={cn('flex-1 px-4 flex flex-col h-full', className)}
+			className={cn('px-4 flex flex-col', className)}
 			{...props}
 		>
 			{children}
@@ -113,7 +118,7 @@ const Footer = ({ className, ...props }: DrawerFooterProps) => {
 	return (
 		<div
 			data-slot='drawer-footer'
-			className={cn('gap-2 p-4 mt-auto flex flex-col', className)}
+			className={cn('gap-2 py-4 flex', className)}
 			{...props}
 		/>
 	);

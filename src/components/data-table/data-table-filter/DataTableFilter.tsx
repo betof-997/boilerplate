@@ -23,16 +23,15 @@ export const DataTableFilter = <TData,>({
 				<Button
 					size='xxs'
 					isIcon={true}
-					variant='primary'
-					isOutlined={isFiltered}
+					variant={isFiltered ? 'secondary' : 'ghost'}
+					isOutlined={!isFiltered}
 					className={cn(
 						'shrink-0',
-						!isFiltered && 'text-foreground/50 hover:text-foreground',
 					)}
 					aria-label='Open column filter'
 					title='Open column filter'
 				>
-					<FilterIcon className='size-3.5' />
+					<FilterIcon className={cn('size-3.5',!isFiltered && 'text-foreground/50 hover:text-foreground')} />
 				</Button>
 			</Popover.Trigger>
 
@@ -58,8 +57,7 @@ export const DataTableFilter = <TData,>({
 					<Button
 						type='button'
 						size='xs'
-						variant='primary'
-						isOutlined={isFiltered}
+						variant="ghost"
 						onClick={() => {
 							column.setFilterValue('');
 						}}

@@ -26,5 +26,6 @@ export const { useAppForm, withFieldGroup, withForm } = createFormHook({
 		Group: Form.Group,
 		Separator: Form.Separator,
 		SubmitButton: Form.SubmitButton,
+		CancelButton: Form.CancelButton,
 	},
 });

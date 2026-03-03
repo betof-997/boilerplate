@@ -52,6 +52,9 @@ export const DataTableFooter = <TData,>({
 					: 'justify-center',
 			)}
 		>
+			<div />
+
+			<div className='flex items-center gap-5'>
 			{shouldShowPageSizeSelector && (
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger asChild>
@@ -59,8 +62,7 @@ export const DataTableFooter = <TData,>({
 							type='button'
 							size='xs'
 							variant='secondary'
-							isIcon={true}
-							className='h-7 px-2'
+							className='h-7 px-2 w-min'
 							aria-label='Select page size'
 						>
 							Rows: {currentPageSize}
@@ -157,6 +159,7 @@ export const DataTableFooter = <TData,>({
 					)}
 				</div>
 			)}
+			</div>
 		</div>
 	);
 };

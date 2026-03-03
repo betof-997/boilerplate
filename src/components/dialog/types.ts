@@ -19,9 +19,7 @@ export type DialogContentProps = ComponentProps<
 
 export type DialogHeaderProps = ComponentProps<'div'>;
 
-export type DialogFooterProps = ComponentProps<'div'> & {
-	showCloseButton?: boolean;
-};
+export type DialogFooterProps = ComponentProps<'div'>;
 
 export type DialogTitleProps = ComponentProps<typeof DialogPrimitive.Title>;
 

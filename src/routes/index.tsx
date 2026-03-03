@@ -77,8 +77,8 @@ function RouteComponent() {
 
 					<Button
 						onClick={handleGoogleSignIn}
-						size='lg'
-						className='mt-8 h-11 w-full font-semibold'
+						size='md'
+						className='mt-6 w-full'
 					>
 						Sign in with Google
 					</Button>

@@ -1,6 +1,7 @@
 import { Separator } from '@/components/separator';
 import { cn } from '@/lib/utils';
 import type {
+	FormCancelButtonProps,
 	FormGroupProps,
 	FormRootProps,
 	FormSeparatorProps,
@@ -143,10 +144,37 @@ const FormSubmitButton = (props: FormSubmitButtonProps) => {
 	);
 };
 
+const FormCancelButton = (props: FormCancelButtonProps) => {
+	const form = useFormContext();
+
+	return (
+		<form.Subscribe
+			selector={(state) => ({
+				isSubmitting: state.isSubmitting,
+			})}
+			children={({ isSubmitting }) => {
+				const isDisabled = isSubmitting || props.disabled;
+
+				return (
+					<Button
+						type='button'
+						variant='secondary'
+						{...props}
+						disabled={isDisabled}
+					>
+						{props.children ?? 'Cancel'}
+					</Button>
+				);
+			}}
+		/>
+	);
+};
+
 export const Form = {
 	Root: FormRoot,
 	Set: FormSet,
 	Group,
 	Separator: FormSeparator,
 	SubmitButton: FormSubmitButton,
+	CancelButton: FormCancelButton,
 };

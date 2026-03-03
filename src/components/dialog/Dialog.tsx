@@ -123,12 +123,7 @@ const Header = ({ className, ...props }: DialogHeaderProps) => {
 	);
 };
 
-const Footer = ({
-	className,
-	showCloseButton = false,
-	children,
-	...props
-}: DialogFooterProps) => {
+const Footer = ({ className, children, ...props }: DialogFooterProps) => {
 	return (
 		<div
 			data-slot='dialog-footer'
@@ -139,20 +134,6 @@ const Footer = ({
 			{...props}
 		>
 			{children}
-
-			{showCloseButton && (
-				<DialogClosePrimitive
-					data-slot='dialog-close'
-					asChild
-				>
-					<Button
-						variant='secondary'
-						isOutlined
-					>
-						Close
-					</Button>
-				</DialogClosePrimitive>
-			)}
 		</div>
 	);
 };

@@ -27,7 +27,7 @@ function AuthenticatedLayout() {
 				data-slot='authenticated-layout-content'
 				className='flex min-w-0 flex-1 flex-col'
 			>
-				<div className='p-2'>
+				<div className='p-2 w-min'>
 					<Sidebar.Trigger />
 				</div>
 

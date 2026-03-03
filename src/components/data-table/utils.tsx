@@ -31,12 +31,12 @@ export const createRowActionsColumn = <TData,>(
 						<Button
 							key={`button-${index}`}
 							size='xxs'
-							variant={action.variant}
+							variant={action.variant ?? 'ghost'}
 							isOutlined={action.isOutlined}
 							isIcon={true}
 							disabled={action.disabled}
 							className={action.className}
-							title={action.tooltip}
+							tooltip={action.tooltip}
 							aria-label={action.tooltip}
 							onClick={() => action.onClick(row.original)}
 						>

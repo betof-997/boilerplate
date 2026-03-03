@@ -57,7 +57,7 @@ export const ClientDeleteDialog = () => {
 					<Button
 						variant='destructive'
 						onClick={handleDelete}
-						disabled={isPending}
+						isLoading={isPending}
 					>
 						Delete
 					</Button>

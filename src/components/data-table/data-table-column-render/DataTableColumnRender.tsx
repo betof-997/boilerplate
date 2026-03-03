@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/checkbox';
 import { Switch } from '@/components/switch';
 import { toDate } from '@/utils/dateUtils';
 import { inferDataTableColumnFormat } from './utils';
+import { Tooltip } from '@/components/tooltip';
 
 const assertNever = (value: never): never => value;
 
@@ -37,14 +38,23 @@ const TextCell = ({ data, format }: CellProps<'text'>) => {
 					href={`mailto:${value}`}
 					target='_blank'
 					rel='noopener noreferrer'
-					className='text-blue-500 hover:underline'
+					className='text-blue-600 hover:underline'
 				>
 					{value}
 				</a>
 			);
 		}
 		case 'id': {
-			return <span>#{value}</span>;
+			const displayValue = value.slice(0, 8);
+
+			return (
+				<Tooltip.Root>
+					<Tooltip.Trigger asChild>
+						<span>#{displayValue}</span>
+					</Tooltip.Trigger>
+					<Tooltip.Content>{value}</Tooltip.Content>
+				</Tooltip.Root>
+			);
 		}
 		case 'phone': {
 			return (
@@ -52,7 +62,7 @@ const TextCell = ({ data, format }: CellProps<'text'>) => {
 					href={`tel:${value}`}
 					target='_blank'
 					rel='noopener noreferrer'
-					className='text-blue-500 hover:underline'
+					className='text-blue-600 hover:underline'
 				>
 					{value}
 				</a>
