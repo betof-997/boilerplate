@@ -47,12 +47,14 @@ export type DataTableFormatStyle = DataTableCulumnFormatConfig['style'];
 
 export type DataTableIdColumn<TData> = {
 	id: string;
+	header?: ReactNode;
 	accessorKey?: never;
 	cell: (row: TData) => ReactNode;
 };
 
 export type DataTableAccessorKeyColumn<TData> = {
 	id?: never;
+	header?: ReactNode;
 	accessorKey: Extract<keyof TData, string>;
 	format?: DataTableCulumnFormatConfig;
 	canSort?: boolean;

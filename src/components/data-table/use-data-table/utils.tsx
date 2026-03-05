@@ -15,6 +15,8 @@ import type {
 } from '../data-table-column-render/types';
 import { createRowActionsColumn } from '../utils';
 import { DataTableColumnRender } from '../data-table-column-render';
+import type { ReactNode } from 'react';
+import { toTitleCase } from '@/utils/stringUtils';
 
 export const resolveDataTableSingleColumnSorting = <TData,>(
 	updater: Updater<SortingState>,
@@ -117,9 +119,23 @@ export const resolveDataTableColumn = <TData,>({
 	const columns: ColumnDef<TData>[] = [];
 
 	for (const column of baseColumns) {
+		let headerContent: ReactNode = column.header;
+
+		if (!headerContent) {
+			if (column.accessorKey) {
+				headerContent = toTitleCase(String(column.accessorKey));
+			} else if (column.id) {
+				headerContent = toTitleCase(String(column.id));
+			}
+		}
+		const header = headerContent
+			? () => <span>{headerContent}</span>
+			: undefined;
+
 		if (column.id) {
 			columns.push({
 				id: column.id,
+				header,
 				cell: ({ row }) => column.cell(row.original),
 			});
 			continue;
@@ -131,6 +147,7 @@ export const resolveDataTableColumn = <TData,>({
 
 		columns.push({
 			id: column.accessorKey,
+			header,
 			accessorKey: column.accessorKey,
 			enableSorting: column.canSort,
 			enableHiding: column.canHide,
