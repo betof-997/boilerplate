@@ -1,18 +1,20 @@
 import { DataTable } from '@/components/data-table';
-import { useUser } from '@/hooks/use-user';
-import { getAllClientsQueryOptions } from '@/query-options/clientQueryOptions';
+import { getPaginatedClientsQueryOptions } from '@/query-options/clientQueryOptions';
 import { useQuery } from '@tanstack/react-query';
 import {
 	useClientTableColumns,
 	useClientTableRowActions,
 	useClientTableToolbarActions,
 } from './utils';
+import { usePaginatedTable } from '@/components/data-table/use-paginated-table';
+import type { SelectClient } from '@/schemas/clientSchemas';
 
 export const ClientTable = () => {
-	const user = useUser();
+	const { getQueryOptions, getTableOptions } =
+		usePaginatedTable<SelectClient>();
 
 	const { data, isFetching } = useQuery(
-		getAllClientsQueryOptions({ userId: user.id }),
+		getPaginatedClientsQueryOptions(getQueryOptions()),
 	);
 	const columns = useClientTableColumns();
 	const toolbarActions = useClientTableToolbarActions();
@@ -21,14 +23,10 @@ export const ClientTable = () => {
 	return (
 		<DataTable
 			columns={columns}
-			data={data}
 			isLoading={isFetching}
 			toolbarActions={toolbarActions}
 			rowActions={rowActions}
-			defaultSort={{
-				id: 'createdAt',
-				desc: true,
-			}}
+			{...getTableOptions({ data })}
 		/>
 	);
 };

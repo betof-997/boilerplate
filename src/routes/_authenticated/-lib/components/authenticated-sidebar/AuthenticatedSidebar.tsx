@@ -20,13 +20,13 @@ export const AuthenticatedSidebar = () => {
 			>
 				<p
 					className={cn(
-						'truncate px-2 text-sm font-semibold text-sidebar-foreground transition-opacity',
-						isOpen ? '' : '-mr-6 opacity-0',
+						'truncate px-2 text-sm font-semibold text-sidebar-foreground transition-opacity -mr-6',
+						isOpen ? '' : 'opacity-0',
 					)}
 				>
 					{appConfig.appName}
 				</p>
-				<Sidebar.Trigger />
+				<Sidebar.Trigger className='bg-sidebar' />
 			</div>
 
 			<Sidebar.Content data-slot='authenticated-sidebar-content'>

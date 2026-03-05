@@ -3,6 +3,7 @@ import {
 	deleteClientServerFn,
 	getClientByIdServerFn,
 	getClientsServerFn,
+	getPaginatedClientsServerFn,
 	updateClientServerFn,
 } from '@/server-fns/clientServerFns';
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ import {
 	handleQueryFn,
 	invalidateOnSuccess,
 } from '@/utils/queryOptionsUtils';
+import type { GetPaginatedQueryOptions } from '@/utils/schemaUtils';
 
 export const clientQueryKeys = createQueryKeys({ baseKey: 'clients' });
 
@@ -30,6 +32,20 @@ export const getAllClientsQueryOptions = ({ userId }: GetClientsParams) => {
 		}),
 		queryFn: () =>
 			handleQueryFn(() => getClientsServerFn({ data: { userId } })),
+	});
+};
+
+export const getPaginatedClientsQueryOptions = ({
+	userId,
+	pagination,
+	orderBy,
+}: GetPaginatedQueryOptions) => {
+	return queryOptions({
+		queryKey: clientQueryKeys.getPaginated({ userId, orderBy, pagination }),
+		queryFn: () =>
+			handleQueryFn(() =>
+				getPaginatedClientsServerFn({ data: { userId, pagination, orderBy } }),
+			),
 	});
 };
 

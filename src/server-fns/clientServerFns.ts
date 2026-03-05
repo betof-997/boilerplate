@@ -1,17 +1,22 @@
 import { db } from '@/db/client';
 import { clientTable } from '@/db/tables';
 import {
-	createSuccessResponse,
-	HTTP_STATUS_CODES,
-	createErrorResponse,
-} from '@/utils/serverFnsUtils';
-import {
-	insertClientParamsSchema,
-	updateClientParamsSchema,
+	deleteClientParamsSchema,
 	getClientByIdParamsSchema,
 	getClientsParamsSchema,
-	deleteClientParamsSchema,
+	insertClientParamsSchema,
+	updateClientParamsSchema,
 } from '@/schemas/clientSchemas';
+import { getPaginatedQueryOptionsSchema } from '@/utils/schemaUtils';
+import {
+	createErrorResponse,
+	createPaginatedData,
+	createSuccessResponse,
+	getPaginatedQueryExtras,
+	getPaginatedQueryLimitOffset,
+	getPaginatedQueryOrderBy,
+	HTTP_STATUS_CODES,
+} from '@/utils/serverFnsUtils';
 import { createServerFn } from '@tanstack/react-start';
 import { and, eq } from 'drizzle-orm';
 
@@ -26,6 +31,32 @@ export const getClientsServerFn = createServerFn()
 			});
 
 			return createSuccessResponse({ data: clients });
+		} catch (error) {
+			throw createErrorResponse({ error });
+		}
+	});
+
+export const getPaginatedClientsServerFn = createServerFn()
+	.inputValidator(getPaginatedQueryOptionsSchema)
+	.handler(async ({ data: { userId, pagination, orderBy: orderByBase } }) => {
+		try {
+			const { limit, offset } = getPaginatedQueryLimitOffset({ pagination });
+			const orderBy = getPaginatedQueryOrderBy({ orderBy: orderByBase });
+			const extras = getPaginatedQueryExtras();
+
+			const clients = await db.query.clientTable.findMany({
+				where: {
+					userId,
+				},
+				offset,
+				limit,
+				orderBy,
+				extras,
+			});
+
+			return createSuccessResponse({
+				data: createPaginatedData(clients),
+			});
 		} catch (error) {
 			throw createErrorResponse({ error });
 		}

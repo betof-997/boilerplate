@@ -1,6 +1,7 @@
 import type { MutationOptions } from '@tanstack/react-query';
 import type { SuccessResponse } from './serverFnsUtils';
 import { toast } from 'sonner';
+import type { DataTableOrderByState, DataTablePaginationState } from '@/components/data-table/schemas';
 
 export type WithUserId = {
 	userId: string;
@@ -12,6 +13,11 @@ export type QueryKeyGetAll = WithUserId;
 
 export type QueryKeyGetById = WithUserId & {
 	id: string;
+};
+
+export type QueryKeyGetPaginated = WithUserId & {
+	pagination: DataTablePaginationState;
+	orderBy: DataTableOrderByState;
 };
 
 type CreateQueryKeysParams = {
@@ -26,6 +32,13 @@ export const createQueryKeys = ({ baseKey }: CreateQueryKeysParams) => {
 			userId,
 			id,
 			'getById',
+		],
+		getPaginated: ({ userId, pagination, orderBy }: QueryKeyGetPaginated) => [
+			baseKey,
+			userId,
+			pagination,
+			orderBy,
+			'getPaginated',
 		],
 	};
 };

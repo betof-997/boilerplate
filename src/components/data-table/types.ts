@@ -1,4 +1,4 @@
-import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
+import type { OnChangeFn } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonProps } from '@/components/button';
@@ -7,6 +7,10 @@ import type {
 	DataTableAccessorKeyColumn,
 	DataTableIdColumn,
 } from './data-table-column-render/types';
+import type {
+	DataTableOrderByState,
+	DataTablePaginationState,
+} from './schemas';
 
 type DataTablePaginationBaseOptions = {
 	pageSizeOptions?: number[];
@@ -19,9 +23,9 @@ export type DataTableSort<TData> = {
 
 export type DataTableClientSort = boolean;
 
-export type DataTableServerSort<TData> = {
-	state: DataTableSort<TData>;
-	setState: OnChangeFn<DataTableSort<TData>>;
+export type DataTableServerSort = {
+	state: DataTableOrderByState;
+	setState: OnChangeFn<DataTableOrderByState>;
 };
 
 export type DataTableFilterItem<TData> = {
@@ -40,8 +44,8 @@ export type DataTableClientPagination = DataTablePaginationBaseOptions & {
 
 export type DataTableServerPagination = DataTablePaginationBaseOptions & {
 	isServerSide: true;
-	state: PaginationState;
-	setState: OnChangeFn<PaginationState>;
+	state: DataTablePaginationState;
+	setState: OnChangeFn<DataTablePaginationState>;
 	totalItems: number;
 };
 
@@ -156,7 +160,7 @@ export type DataTableClientProps<TData> = DataTableSharedProps<TData> & {
 
 export type DataTableServerProps<TData> = DataTableSharedProps<TData> & {
 	pagination: DataTableServerPagination;
-	sort?: DataTableServerSort<TData>;
+	sort?: DataTableServerSort;
 	filter?: DataTableServerFilter<TData>;
 	defaultSort?: never;
 };

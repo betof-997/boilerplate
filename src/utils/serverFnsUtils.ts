@@ -1,4 +1,9 @@
+import type {
+	DataTableOrderByState,
+	DataTablePaginationState,
+} from '@/components/data-table/schemas';
 import { setResponseStatus } from '@tanstack/react-start/server';
+import { sql } from 'drizzle-orm';
 
 export const HTTP_STATUS_CODES = {
 	OK: 200,
@@ -60,4 +65,50 @@ export const createErrorResponse = ({
 	}
 
 	return { message: errorMessage };
+};
+
+export type PaginatedResponseData<TData> = {
+	items: TData[];
+	total: number;
+};
+export const createPaginatedData = <TData extends { total: number }>(
+	data: TData[],
+): PaginatedResponseData<TData> => {
+	return {
+		items: data,
+		total: data[0]?.total ?? 0,
+	};
+};
+
+export type GetPaginatedQueryOrderByParams = {
+	orderBy: DataTableOrderByState;
+};
+export const getPaginatedQueryOrderBy = ({
+	orderBy,
+}: GetPaginatedQueryOrderByParams) => {
+	if (!orderBy?.id || typeof orderBy.id !== 'string') {
+		return undefined;
+	}
+
+	return {
+		[orderBy.id]: orderBy.desc ? 'desc' : 'asc',
+	};
+};
+
+export type GetPaginatedQueryLimitOffsetParams = {
+	pagination: DataTablePaginationState;
+};
+export const getPaginatedQueryLimitOffset = ({
+	pagination,
+}: GetPaginatedQueryLimitOffsetParams): { limit: number; offset: number } => {
+	const limit = pagination?.pageSize ?? 0;
+	const offset = (pagination?.pageIndex ?? 0) * limit;
+
+	return { limit, offset };
+};
+
+export const getPaginatedQueryExtras = () => {
+	return {
+		total: sql<number>`COUNT(*) OVER()`,
+	};
 };

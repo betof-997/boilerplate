@@ -11,8 +11,10 @@ import type {
 	SortingState,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-import { DEFAULT_DATA_TABLE_PAGE_SIZE_OPTIONS } from '../consts';
-import { DATA_TABLE_INITIAL_PAGE_INDEX } from './consts';
+import {
+	DATA_TABLE_DEFAULT_PAGINATION_STATE,
+	DATA_TABLE_INITIAL_PAGE_INDEX,
+} from './consts';
 import type { UseDataTableParams } from './types';
 import {
 	hasDataTableColumnFiltersChanged,
@@ -21,6 +23,7 @@ import {
 	resolveDataTableSingleColumnSorting,
 	toServerDataTableFilters,
 } from './utils';
+import type { DataTableOrderByState } from '../schemas';
 
 export const useDataTable = <TData>({
 	columns: baseColumns,
@@ -35,12 +38,11 @@ export const useDataTable = <TData>({
 }: UseDataTableParams<TData>) => {
 	'use no memo'; // React Compiler + TanStack Table compatibility workaround.
 
-	const [tablePagination, setTablePagination] = useState({
-		pageIndex: DATA_TABLE_INITIAL_PAGE_INDEX,
-		pageSize: DEFAULT_DATA_TABLE_PAGE_SIZE_OPTIONS[0],
-	});
-	const [tableSorting, setTableSorting] = useState<SortingState>(() =>
-		defaultSort ? [defaultSort] : [],
+	const [tablePagination, setTablePagination] = useState(
+		DATA_TABLE_DEFAULT_PAGINATION_STATE,
+	);
+	const [tableSorting, setTableSorting] = useState<DataTableOrderByState[]>(
+		() => (defaultSort ? [defaultSort] : []),
 	);
 	const [tableColumnFilters, setTableColumnFilters] =
 		useState<ColumnFiltersState>([]);
