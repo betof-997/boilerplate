@@ -6,12 +6,12 @@
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",
-		"check": "biome check . --write",
+		"check": "biome check . --write --error-on-warnings",
 		"db:migrate": "drizzle-kit generate --config=drizzle.config.ts && drizzle-kit migrate --config=drizzle.config.ts"
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.1.0",
-		"@biomejs/biome": "^2.3.12",
+		"@biomejs/biome": "^2.4.6",
 		"@libsql/client": "^0.17.0",
 		"@radix-ui/react-dialog": "^1.1.15",
 		"@radix-ui/react-dropdown-menu": "^2.1.16",

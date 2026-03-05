@@ -1,7 +1,7 @@
 import { Separator } from '@/components/separator';
 import { useFormContext } from '@/hooks/use-app-form';
 import { cn } from '@/lib/utils';
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
 import { useMemo } from 'react';
 import { Button } from '../button';
 import type {
@@ -28,7 +28,7 @@ const FormRoot = ({
 		[isLoading],
 	);
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		event.stopPropagation();
 		formApi.handleSubmit();
