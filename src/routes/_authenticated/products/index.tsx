@@ -1,9 +1,10 @@
+import { Page } from '@/components/page';
 import { createFileRoute } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
 import z from 'zod';
+import { ProductDeleteDialog } from './-lib/product-delete-dialog';
 import { ProductTable } from './-lib/product-table';
 import { ProductUpsertDrawer } from './-lib/product-upsert-drawer';
-import { ProductDeleteDialog } from './-lib/product-delete-dialog';
 
 const productSearchSchema = z.object({
 	isCreating: z.boolean().optional(),
@@ -18,12 +19,18 @@ export const Route = createFileRoute('/_authenticated/products/')({
 
 function ProductsPage() {
 	return (
-		<section>
-			<h1 className='text-2xl font-semibold'>Products</h1>
+		<Page.Root>
+			<Page.Header>
+				<Page.Title>Products</Page.Title>
+				<Page.Description>Manage your products</Page.Description>
+			</Page.Header>
 
-			<ProductTable />
+			<Page.Content>
+				<ProductTable />
+			</Page.Content>
+
 			<ProductUpsertDrawer />
 			<ProductDeleteDialog />
-		</section>
+		</Page.Root>
 	);
 }

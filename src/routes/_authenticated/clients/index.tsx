@@ -1,9 +1,10 @@
+import { Page } from '@/components/page';
 import { createFileRoute } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
-import { ClientTable } from './-lib/client-table';
 import z from 'zod';
-import { ClientUpsertDrawer } from './-lib/client-upsert-drawer';
 import { ClientDeleteDialog } from './-lib/client-delete-dialog';
+import { ClientTable } from './-lib/client-table';
+import { ClientUpsertDrawer } from './-lib/client-upsert-drawer';
 
 const clientSearchSchema = z.object({
 	isCreating: z.boolean().optional(),
@@ -18,12 +19,18 @@ export const Route = createFileRoute('/_authenticated/clients/')({
 
 function ClientsPage() {
 	return (
-		<section>
-			<h1 className='text-2xl font-semibold'>Clients</h1>
+		<Page.Root>
+			<Page.Header>
+				<Page.Title>Clients</Page.Title>
+				<Page.Description>Manage your clients</Page.Description>
+			</Page.Header>
 
-			<ClientTable />
+			<Page.Content>
+				<ClientTable />
+			</Page.Content>
+
 			<ClientUpsertDrawer />
 			<ClientDeleteDialog />
-		</section>
+		</Page.Root>
 	);
 }

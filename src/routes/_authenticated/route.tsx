@@ -1,6 +1,6 @@
-import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 import { Sidebar } from '@/components/sidebar';
 import { authSessionQueryOptions } from '@/lib/auth/authServer';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 import { AuthenticatedSidebar } from './-lib/components/authenticated-sidebar';
 
 export const Route = createFileRoute('/_authenticated')({
@@ -23,18 +23,13 @@ function AuthenticatedLayout() {
 		<Sidebar.Root>
 			<AuthenticatedSidebar />
 
-			<main
-				data-slot='authenticated-layout-content'
-				className='flex min-w-0 flex-1 flex-col'
-			>
+			<section className='flex min-w-0 flex-1 flex-col'>
 				<div className='p-2 w-min'>
 					<Sidebar.Trigger />
 				</div>
 
-				<div className='min-h-0 flex-1 p-8'>
-					<Outlet />
-				</div>
-			</main>
+				<Outlet />
+			</section>
 		</Sidebar.Root>
 	);
 }
