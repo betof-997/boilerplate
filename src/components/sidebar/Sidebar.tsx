@@ -2,7 +2,7 @@ import { Button } from '@/components/button';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
-import { PanelLeftIcon } from 'lucide-react';
+import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import {
 	SIDEBAR_KEYBOARD_SHORTCUT,
@@ -218,14 +218,17 @@ const MenuButton = ({
 
 const Trigger = ({ className, onClick, ...props }: SidebarTriggerProps) => {
 	const toggleSidebar = useSidebar((s) => s.toggleSidebar);
+	const open = useSidebar((s) => s.open);
+
+	const Icon = open ? PanelLeftCloseIcon : PanelLeftOpenIcon;
 
 	return (
 		<Button
 			data-sidebar='trigger'
 			data-slot='sidebar-trigger'
 			variant='secondary'
-			isOutlined={true}
 			isIcon={true}
+			isGhost={true}
 			className={cn('rounded-lg', className)}
 			onClick={(event) => {
 				onClick?.(event);
@@ -233,7 +236,7 @@ const Trigger = ({ className, onClick, ...props }: SidebarTriggerProps) => {
 			}}
 			{...props}
 		>
-			<PanelLeftIcon />
+			<Icon />
 			<span className='sr-only'>Toggle Sidebar</span>
 		</Button>
 	);
