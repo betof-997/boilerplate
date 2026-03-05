@@ -4,8 +4,12 @@ import type {
 	DataTableToolbarAction,
 } from '@/components/data-table';
 import type { SelectProduct } from '@/schemas/productSchemas';
-import { PencilIcon, PlusIcon, TrashIcon } from 'lucide-react';
 import { getRouteApi } from '@tanstack/react-router';
+import {
+	getTableDeleteRowAction,
+	getTableEditRowAction,
+} from '@/components/data-table/use-data-table/baseTableRowActions';
+import { getTableAddRowAction } from '@/components/data-table/data-table-toolbar/baseTableToolbarActions';
 
 const productsRouteApi = getRouteApi('/_authenticated/products/');
 
@@ -26,6 +30,10 @@ export const useProductTableColumns = (): DataTableColumn<SelectProduct>[] => {
 		},
 		{
 			accessorKey: 'price',
+			format: {
+				kind: 'number',
+				style: 'currency',
+			},
 		},
 		{
 			accessorKey: 'createdAt',
@@ -42,13 +50,11 @@ export const useProductTableToolbarActions = () => {
 	const navigate = productsRouteApi.useNavigate();
 
 	const toolbarActions: DataTableToolbarAction<SelectProduct>[] = [
-		{
-			type: 'button',
+		getTableAddRowAction({
 			label: 'Add Product',
-			icon: PlusIcon,
 			onClick: () =>
 				navigate({ to: '/products', search: { isCreating: true } }),
-		},
+		}),
 	];
 	return toolbarActions;
 };
@@ -57,21 +63,14 @@ export const useProductTableRowActions = () => {
 	const navigate = productsRouteApi.useNavigate();
 
 	const rowActions: DataTableRowAction<SelectProduct>[] = [
-		{
-			type: 'button',
-			icon: PencilIcon,
-			tooltip: 'Edit Product',
+		getTableEditRowAction({
 			onClick: (rowData) =>
 				navigate({ to: '/products', search: { editId: rowData.id } }),
-		},
-		{
-			type: 'button',
-			icon: TrashIcon,
-			variant: 'destructive',
-			tooltip: 'Delete Product',
+		}),
+		getTableDeleteRowAction({
 			onClick: (rowData) =>
 				navigate({ to: '/products', search: { deleteId: rowData.id } }),
-		},
+		}),
 	];
 	return rowActions;
 };

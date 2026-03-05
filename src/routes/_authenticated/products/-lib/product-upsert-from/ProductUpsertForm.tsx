@@ -8,7 +8,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { useProductUpsertFormDefaultValues } from './utils';
 import { useAppForm } from '@/hooks/use-app-form';
-import { productUpsertFormSchema } from '@/schemas/productSchemas';
+import { upsertProductFormSchema } from '@/schemas/productSchemas';
 import { Drawer } from '@/components/drawer';
 
 const productsRouteApi = getRouteApi('/_authenticated/products/');
@@ -42,7 +42,7 @@ export const ProductUpsertForm = () => {
 	const form = useAppForm({
 		defaultValues,
 		validators: {
-			onChange: productUpsertFormSchema,
+			onChange: upsertProductFormSchema,
 		},
 		onSubmit: async ({ value }) => {
 			if (isCreating) {

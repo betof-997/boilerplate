@@ -1,11 +1,15 @@
+import { getTableAddRowAction } from '@/components/data-table/data-table-toolbar/baseTableToolbarActions';
 import type {
 	DataTableColumn,
 	DataTableRowAction,
 	DataTableToolbarAction,
 } from '@/components/data-table/types';
+import {
+	getTableDeleteRowAction,
+	getTableEditRowAction,
+} from '@/components/data-table/use-data-table/baseTableRowActions';
 import type { SelectClient } from '@/schemas/clientSchemas';
 import { getRouteApi } from '@tanstack/react-router';
-import { PencilIcon, PlusIcon, TrashIcon } from 'lucide-react';
 
 const clientsRouteApi = getRouteApi('/_authenticated/clients/');
 
@@ -44,12 +48,10 @@ export const useClientTableToolbarActions = () => {
 	const navigate = clientsRouteApi.useNavigate();
 
 	const actions: DataTableToolbarAction<SelectClient>[] = [
-		{
-			type: 'button',
+		getTableAddRowAction({
 			label: 'Add Client',
-			icon: PlusIcon,
 			onClick: () => navigate({ to: '/clients', search: { isCreating: true } }),
-		},
+		}),
 	];
 
 	return actions;
@@ -59,21 +61,14 @@ export const useClientTableRowActions = () => {
 	const navigate = clientsRouteApi.useNavigate();
 
 	const actions: DataTableRowAction<SelectClient>[] = [
-		{
-			type: 'button',
-			icon: PencilIcon,
-			tooltip: 'Edit Client',
+		getTableEditRowAction({
 			onClick: (rowData) =>
 				navigate({ to: '/clients', search: { editId: rowData.id } }),
-		},
-		{
-			type: 'button',
-			icon: TrashIcon,
-			variant: 'destructive',
-			tooltip: 'Delete Client',
+		}),
+		getTableDeleteRowAction({
 			onClick: (rowData) =>
 				navigate({ to: '/clients', search: { deleteId: rowData.id } }),
-		},
+		}),
 	];
 
 	return actions;

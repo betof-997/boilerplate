@@ -8,34 +8,38 @@ export type SelectProduct = z.infer<typeof selectProductSchema>;
 export const insertProductSchema = createInsertSchema(productTable);
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 
-export const getProductsParamsSchema = z.object(
-	selectProductSchema.pick({ userId: true }).shape,
-);
+export const getProductsParamsSchema = selectProductSchema.pick({
+	userId: true,
+});
 export type GetProductsParams = z.infer<typeof getProductsParamsSchema>;
 
-export const getProductByIdParamsSchema = z.object(
-	selectProductSchema.pick({ id: true, userId: true }).shape,
-);
+export const getProductByIdParamsSchema = selectProductSchema.pick({
+	id: true,
+	userId: true,
+});
 export type GetProductByIdParams = z.infer<typeof getProductByIdParamsSchema>;
 
-export const productUpsertFormSchema = z.object({
+export const upsertProductFormSchema = z.object({
 	name: z.string().min(1),
 	description: z.string().min(1),
 	price: z.number().min(0),
 });
-export type UpsertProductForm = z.infer<typeof productUpsertFormSchema>;
+export type UpsertProductForm = z.infer<typeof upsertProductFormSchema>;
 
-export const insertProductParamsSchema = z
-	.object(productUpsertFormSchema.shape)
-	.extend(selectProductSchema.pick({ userId: true }).shape);
+export const insertProductParamsSchema = z.object({
+	...selectProductSchema.pick({ userId: true }).shape,
+	...upsertProductFormSchema.shape,
+});
 export type InsertProductParams = z.infer<typeof insertProductParamsSchema>;
 
-export const updateProductParamsSchema = z
-	.object(productUpsertFormSchema.shape)
-	.extend(selectProductSchema.pick({ id: true, userId: true }).shape);
+export const updateProductParamsSchema = z.object({
+	...selectProductSchema.pick({ id: true, userId: true }).shape,
+	...upsertProductFormSchema.shape,
+});
 export type UpdateProductParams = z.infer<typeof updateProductParamsSchema>;
 
-export const deleteProductParamsSchema = z.object(
-	selectProductSchema.pick({ id: true, userId: true }).shape,
-);
+export const deleteProductParamsSchema = selectProductSchema.pick({
+	id: true,
+	userId: true,
+});
 export type DeleteProductParams = z.infer<typeof deleteProductParamsSchema>;

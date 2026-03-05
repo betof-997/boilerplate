@@ -31,20 +31,15 @@ export const getClientsServerFn = createServerFn()
 		}
 	});
 
-const checkEmailExists = (email: string) => {
-	return db.query.clientTable.findFirst({
-		where: {
-			email,
-		},
-	});
-};
-
 export const getClientByIdServerFn = createServerFn()
 	.inputValidator(getClientByIdParamsSchema)
-	.handler(async ({ data: { id } }) => {
+	.handler(async ({ data: { id, userId } }) => {
 		try {
 			const client = await db.query.clientTable.findFirst({
-				where: { id },
+				where: {
+					id,
+					userId,
+				},
 			});
 
 			return createSuccessResponse({ data: client });
@@ -53,11 +48,24 @@ export const getClientByIdServerFn = createServerFn()
 		}
 	});
 
+type CheckEmailExistsParams = {
+	email: string;
+	userId: string;
+};
+const checkEmailExists = ({ email, userId }: CheckEmailExistsParams) => {
+	return db.query.clientTable.findFirst({
+		where: {
+			email,
+			userId,
+		},
+	});
+};
+
 export const createClientServerFn = createServerFn()
 	.inputValidator(insertClientParamsSchema)
 	.handler(async ({ data: { name, email, userId } }) => {
 		try {
-			const emailExists = await checkEmailExists(email);
+			const emailExists = await checkEmailExists({ email, userId });
 			if (emailExists) {
 				throw createErrorResponse({
 					statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
@@ -80,10 +88,20 @@ export const createClientServerFn = createServerFn()
 		}
 	});
 
-const checkEmailExistsForUpdate = (email: string, id: string) => {
+type CheckEmailExistsForUpdateParams = {
+	email: string;
+	id: string;
+	userId: string;
+};
+const checkEmailExistsForUpdate = ({
+	email,
+	id,
+	userId,
+}: CheckEmailExistsForUpdateParams) => {
 	return db.query.clientTable.findFirst({
 		where: {
 			email,
+			userId,
 			id: {
 				NOT: {
 					eq: id,
@@ -97,7 +115,11 @@ export const updateClientServerFn = createServerFn()
 	.inputValidator(updateClientParamsSchema)
 	.handler(async ({ data: { id, name, email, userId } }) => {
 		try {
-			const emailExists = await checkEmailExistsForUpdate(email, id);
+			const emailExists = await checkEmailExistsForUpdate({
+				email,
+				id,
+				userId,
+			});
 			if (emailExists) {
 				throw createErrorResponse({
 					statusCode: HTTP_STATUS_CODES.BAD_REQUEST,

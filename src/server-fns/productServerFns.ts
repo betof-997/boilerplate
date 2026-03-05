@@ -30,10 +30,13 @@ export const getProductsServerFn = createServerFn()
 
 export const getProductByIdServerFn = createServerFn()
 	.inputValidator(getProductByIdParamsSchema)
-	.handler(async ({ data: { id } }) => {
+	.handler(async ({ data: { id, userId } }) => {
 		try {
 			const product = await db.query.productTable.findFirst({
-				where: { id },
+				where: {
+					id,
+					userId,
+				},
 			});
 			return createSuccessResponse({ data: product });
 		} catch (error) {
