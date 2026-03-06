@@ -7,10 +7,10 @@ export const sessionTable = s.sqliteTable(
 	{
 		id: u.idColumn(),
 
-		expiresAt: s.integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
-		token: s.text('token').notNull().unique(),
-		ipAddress: s.text('ip_address'),
-		userAgent: s.text('user_agent'),
+		expiresAt: s.integer({ mode: 'timestamp_ms' }).notNull(),
+		token: s.text().notNull().unique(),
+		ipAddress: s.text(),
+		userAgent: s.text(),
 
 		userId: userIdColumn(),
 		createdAt: u.createdAtColumn(),

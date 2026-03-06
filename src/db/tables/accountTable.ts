@@ -7,19 +7,19 @@ export const accountTable = s.sqliteTable(
 	{
 		id: u.idColumn(),
 
-		accountId: s.text('account_id').notNull(),
-		providerId: s.text('provider_id').notNull(),
-		accessToken: s.text('access_token'),
-		refreshToken: s.text('refresh_token'),
-		idToken: s.text('id_token'),
-		accessTokenExpiresAt: s.integer('access_token_expires_at', {
+		accountId: s.text().notNull(),
+		providerId: s.text().notNull(),
+		accessToken: s.text(),
+		refreshToken: s.text(),
+		idToken: s.text(),
+		accessTokenExpiresAt: s.integer({
 			mode: 'timestamp_ms',
 		}),
-		refreshTokenExpiresAt: s.integer('refresh_token_expires_at', {
+		refreshTokenExpiresAt: s.integer({
 			mode: 'timestamp_ms',
 		}),
-		scope: s.text('scope'),
-		password: s.text('password'),
+		scope: s.text(),
+		password: s.text(),
 
 		userId: userIdColumn(),
 		createdAt: u.createdAtColumn(),

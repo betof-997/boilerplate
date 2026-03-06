@@ -5,9 +5,9 @@ import { userIdColumn } from './userTable';
 export const productTable = s.sqliteTable('product', {
 	id: u.idColumn(),
 
-	name: s.text('name').notNull(),
-	description: s.text('description').notNull(),
-	price: s.integer('price').notNull(),
+	name: s.text().notNull(),
+	description: s.text().notNull(),
+	price: s.integer().notNull(),
 
 	userId: userIdColumn(),
 	createdAt: u.createdAtColumn(),

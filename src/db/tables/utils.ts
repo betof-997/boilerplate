@@ -4,20 +4,20 @@ import * as s from 'drizzle-orm/sqlite-core';
 
 export const idColumn = () =>
 	s
-		.text('id')
+		.text()
 		.primaryKey()
 		.$defaultFn(() => uuidv4())
 		.notNull();
 
 export const createdAtColumn = () =>
 	s
-		.integer('created_at', { mode: 'timestamp_ms' })
+		.integer({ mode: 'timestamp_ms' })
 		.notNull()
 		.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`);
 
 export const updatedAtColumn = () =>
 	s
-		.integer('updated_at', { mode: 'timestamp_ms' })
+		.integer({ mode: 'timestamp_ms' })
 		.notNull()
 		.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
 		.$onUpdate(() => new Date());

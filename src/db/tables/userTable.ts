@@ -4,13 +4,10 @@ import * as u from './utils';
 export const userTable = s.sqliteTable('user', {
 	id: u.idColumn(),
 
-	name: s.text('name').notNull(),
-	email: s.text('email').notNull().unique(),
-	emailVerified: s
-		.integer('email_verified', { mode: 'boolean' })
-		.notNull()
-		.default(false),
-	image: s.text('image'),
+	name: s.text().notNull(),
+	email: s.text().notNull().unique(),
+	emailVerified: s.integer({ mode: 'boolean' }).notNull().default(false),
+	image: s.text(),
 
 	createdAt: u.createdAtColumn(),
 	updatedAt: u.updatedAtColumn(),
@@ -18,6 +15,6 @@ export const userTable = s.sqliteTable('user', {
 
 export const userIdColumn = () =>
 	s
-		.text('user_id')
+		.text()
 		.notNull()
 		.references(() => userTable.id, { onDelete: 'cascade' });

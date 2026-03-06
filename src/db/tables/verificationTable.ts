@@ -6,9 +6,9 @@ export const verificationTable = s.sqliteTable(
 	{
 		id: u.idColumn(),
 
-		identifier: s.text('identifier').notNull(),
-		value: s.text('value').notNull(),
-		expiresAt: s.integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+		identifier: s.text().notNull(),
+		value: s.text().notNull(),
+		expiresAt: s.integer({ mode: 'timestamp_ms' }).notNull(),
 
 		createdAt: u.createdAtColumn(),
 		updatedAt: u.updatedAtColumn(),
