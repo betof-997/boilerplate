@@ -1,27 +1,29 @@
-import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import * as s from 'drizzle-orm/sqlite-core';
 import { userIdColumn } from './userTable';
-import { createdAtColumn, idColumn, updatedAtColumn } from './utils';
+import * as u from './utils';
 
-export const accountTable = sqliteTable(
+export const accountTable = s.sqliteTable(
 	'account',
 	{
-		id: idColumn(),
-		accountId: text('account_id').notNull(),
-		providerId: text('provider_id').notNull(),
+		id: u.idColumn(),
+
+		accountId: s.text('account_id').notNull(),
+		providerId: s.text('provider_id').notNull(),
+		accessToken: s.text('access_token'),
+		refreshToken: s.text('refresh_token'),
+		idToken: s.text('id_token'),
+		accessTokenExpiresAt: s.integer('access_token_expires_at', {
+			mode: 'timestamp_ms',
+		}),
+		refreshTokenExpiresAt: s.integer('refresh_token_expires_at', {
+			mode: 'timestamp_ms',
+		}),
+		scope: s.text('scope'),
+		password: s.text('password'),
+
 		userId: userIdColumn(),
-		accessToken: text('access_token'),
-		refreshToken: text('refresh_token'),
-		idToken: text('id_token'),
-		accessTokenExpiresAt: integer('access_token_expires_at', {
-			mode: 'timestamp_ms',
-		}),
-		refreshTokenExpiresAt: integer('refresh_token_expires_at', {
-			mode: 'timestamp_ms',
-		}),
-		scope: text('scope'),
-		password: text('password'),
-		createdAt: createdAtColumn(),
-		updatedAt: updatedAtColumn(),
+		createdAt: u.createdAtColumn(),
+		updatedAt: u.updatedAtColumn(),
 	},
-	(table) => [index('account_userId_idx').on(table.userId)],
+	(table) => [s.index('account_userId_idx').on(table.userId)],
 );

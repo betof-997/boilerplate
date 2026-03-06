@@ -1,14 +1,11 @@
 import * as s from 'drizzle-orm/sqlite-core';
 import * as u from './utils';
-import { userIdColumn } from './userTable';
 
-export const clientTable = s.sqliteTable('client', {
+export const organizationTable = s.sqliteTable('organization', {
 	id: u.idColumn(),
 
 	name: s.text('name').notNull(),
-	email: s.text('email').notNull().unique(),
 
-	userId: userIdColumn(),
 	createdAt: u.createdAtColumn(),
 	updatedAt: u.updatedAtColumn(),
 });

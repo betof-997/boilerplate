@@ -1,19 +1,23 @@
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { createdAtColumn, idColumn, updatedAtColumn } from './utils';
+import * as s from 'drizzle-orm/sqlite-core';
+import * as u from './utils';
 
-export const userTable = sqliteTable('user', {
-	id: idColumn(),
-	name: text('name').notNull(),
-	email: text('email').notNull().unique(),
-	emailVerified: integer('email_verified', { mode: 'boolean' })
+export const userTable = s.sqliteTable('user', {
+	id: u.idColumn(),
+
+	name: s.text('name').notNull(),
+	email: s.text('email').notNull().unique(),
+	emailVerified: s
+		.integer('email_verified', { mode: 'boolean' })
 		.notNull()
 		.default(false),
-	image: text('image'),
-	createdAt: createdAtColumn(),
-	updatedAt: updatedAtColumn(),
+	image: s.text('image'),
+
+	createdAt: u.createdAtColumn(),
+	updatedAt: u.updatedAtColumn(),
 });
 
 export const userIdColumn = () =>
-	text('user_id')
+	s
+		.text('user_id')
 		.notNull()
 		.references(() => userTable.id, { onDelete: 'cascade' });

@@ -1,13 +1,15 @@
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { createdAtColumn, idColumn, updatedAtColumn } from './utils';
+import * as s from 'drizzle-orm/sqlite-core';
+import * as u from './utils';
 import { userIdColumn } from './userTable';
 
-export const productTable = sqliteTable('product', {
-	id: idColumn(),
-	name: text('name').notNull(),
-	description: text('description').notNull(),
-	price: integer('price').notNull(),
+export const productTable = s.sqliteTable('product', {
+	id: u.idColumn(),
+
+	name: s.text('name').notNull(),
+	description: s.text('description').notNull(),
+	price: s.integer('price').notNull(),
+
 	userId: userIdColumn(),
-	createdAt: createdAtColumn(),
-	updatedAt: updatedAtColumn(),
+	createdAt: u.createdAtColumn(),
+	updatedAt: u.updatedAtColumn(),
 });
