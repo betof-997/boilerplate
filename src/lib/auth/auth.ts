@@ -29,4 +29,9 @@ export const auth = betterAuth({
 		},
 	},
 	plugins: [tanstackStartCookies()],
+	user: {
+		deleteUser: {
+			enabled: true,
+		},
+	},
 });

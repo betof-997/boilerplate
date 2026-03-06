@@ -1,14 +1,15 @@
-import { Link } from '@tanstack/react-router';
 import { useQueryClient } from '@tanstack/react-query';
 import { BadgeCheckIcon, ChevronsUpDownIcon, LogOutIcon } from 'lucide-react';
 import { DropdownMenu } from '@/components/dropdown-menu';
 import { Sidebar } from '@/components/sidebar';
 import { authClient } from '@/lib/auth/authClient';
 import { Route as AuthenticatedRoute } from '../../../route';
+import { useAccountDrawer } from '@/hooks/use-account-drawer/useAccountDrawer';
 
 export const SidebarUserMenu = () => {
 	const queryClient = useQueryClient();
 	const { user } = AuthenticatedRoute.useRouteContext();
+	const setIsAccountDrawerOpen = useAccountDrawer((state) => state.setIsOpen);
 
 	const displayName = user.name ?? user.email;
 	const initials = displayName
@@ -95,11 +96,9 @@ export const SidebarUserMenu = () => {
 
 				<DropdownMenu.Separator />
 
-				<DropdownMenu.Item asChild>
-					<Link to='/account'>
-						<BadgeCheckIcon />
-						Account
-					</Link>
+				<DropdownMenu.Item onSelect={() => setIsAccountDrawerOpen(true)}>
+					<BadgeCheckIcon />
+					Account
 				</DropdownMenu.Item>
 
 				<DropdownMenu.Separator />

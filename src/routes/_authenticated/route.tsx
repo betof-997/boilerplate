@@ -2,6 +2,7 @@ import { Sidebar } from '@/components/sidebar';
 import { authSessionQueryOptions } from '@/lib/auth/authServer';
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 import { AuthenticatedSidebar } from './-lib/components/authenticated-sidebar';
+import { AccountDrawer } from '@/components/account-drawer';
 
 export const Route = createFileRoute('/_authenticated')({
 	beforeLoad: async ({ context }) => {
@@ -24,6 +25,7 @@ function AuthenticatedLayout() {
 			<AuthenticatedSidebar />
 
 			<Outlet />
+			<AccountDrawer />
 		</Sidebar.Root>
 	);
 }

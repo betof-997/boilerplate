@@ -153,7 +153,7 @@ const GroupLabel = ({
 			data-slot='sidebar-group-label'
 			data-sidebar='group-label'
 			className={cn(
-				'text-sidebar-foreground/70 ring-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 flex shrink-0 items-center outline-hidden [&>svg]:shrink-0',
+				'text-sidebar-foreground/70 h-5 px-2 text-xs font-medium [&>svg]:size-4 [&>svg]:shrink-0 group-data-[state=collapsed]:hidden',
 				className,
 			)}
 			{...props}

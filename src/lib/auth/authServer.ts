@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start';
 import { getRequestHeaders } from '@tanstack/react-start/server';
 import { auth } from './auth';
+import { createErrorResponse } from '@/utils/serverFnsUtils';
 
 export const getSession = createServerFn({ method: 'GET' }).handler(
 	async () => {
@@ -29,3 +30,11 @@ export const ensureSession = createServerFn({ method: 'GET' }).handler(
 		return session;
 	},
 );
+
+export const deleteAccountServerFn = createServerFn().handler(async () => {
+	try {
+		throw new Error('Not implemented');
+	} catch (error) {
+		throw createErrorResponse({ error });
+	}
+});
