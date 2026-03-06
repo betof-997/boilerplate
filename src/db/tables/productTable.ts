@@ -1,6 +1,6 @@
 import * as s from 'drizzle-orm/sqlite-core';
 import * as u from './utils';
-import { userIdColumn } from './userTable';
+import { organizationIdColumn } from './organizationTable';
 
 export const productTable = s.sqliteTable('product', {
 	id: u.idColumn(),
@@ -9,7 +9,7 @@ export const productTable = s.sqliteTable('product', {
 	description: s.text().notNull(),
 	price: s.integer().notNull(),
 
-	userId: userIdColumn(),
+	organizationId: organizationIdColumn(),
 	createdAt: u.createdAtColumn(),
 	updatedAt: u.updatedAtColumn(),
 });

@@ -9,16 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedProductsIndexRouteImport } from './routes/_authenticated/products/index'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
-import { Route as AuthenticatedClientsIndexRouteImport } from './routes/_authenticated/clients/index'
-import { Route as AuthenticatedAccountIndexRouteImport } from './routes/_authenticated/account/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppOrganizationIdRouteRouteImport } from './routes/app/$organizationId/route'
+import { Route as AppCreateOrganizationIndexRouteImport } from './routes/app/create-organization/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AppOrganizationIdProductsIndexRouteImport } from './routes/app/$organizationId/products/index'
+import { Route as AppOrganizationIdDashboardIndexRouteImport } from './routes/app/$organizationId/dashboard/index'
+import { Route as AppOrganizationIdClientsIndexRouteImport } from './routes/app/$organizationId/clients/index'
 
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -26,97 +29,127 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedProductsIndexRoute =
-  AuthenticatedProductsIndexRouteImport.update({
-    id: '/products/',
-    path: '/products/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedDashboardIndexRoute =
-  AuthenticatedDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedClientsIndexRoute =
-  AuthenticatedClientsIndexRouteImport.update({
-    id: '/clients/',
-    path: '/clients/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedAccountIndexRoute =
-  AuthenticatedAccountIndexRouteImport.update({
-    id: '/account/',
-    path: '/account/',
-    getParentRoute: () => AuthenticatedRouteRoute,
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppOrganizationIdRouteRoute = AppOrganizationIdRouteRouteImport.update({
+  id: '/$organizationId',
+  path: '/$organizationId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppCreateOrganizationIndexRoute =
+  AppCreateOrganizationIndexRouteImport.update({
+    id: '/create-organization/',
+    path: '/create-organization/',
+    getParentRoute: () => AppRouteRoute,
   } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppOrganizationIdProductsIndexRoute =
+  AppOrganizationIdProductsIndexRouteImport.update({
+    id: '/products/',
+    path: '/products/',
+    getParentRoute: () => AppOrganizationIdRouteRoute,
+  } as any)
+const AppOrganizationIdDashboardIndexRoute =
+  AppOrganizationIdDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AppOrganizationIdRouteRoute,
+  } as any)
+const AppOrganizationIdClientsIndexRoute =
+  AppOrganizationIdClientsIndexRouteImport.update({
+    id: '/clients/',
+    path: '/clients/',
+    getParentRoute: () => AppOrganizationIdRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
+  '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/account/': typeof AuthenticatedAccountIndexRoute
-  '/clients/': typeof AuthenticatedClientsIndexRoute
-  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
-  '/products/': typeof AuthenticatedProductsIndexRoute
+  '/app/create-organization/': typeof AppCreateOrganizationIndexRoute
+  '/app/$organizationId/clients/': typeof AppOrganizationIdClientsIndexRoute
+  '/app/$organizationId/dashboard/': typeof AppOrganizationIdDashboardIndexRoute
+  '/app/$organizationId/products/': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
+  '/app': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/account': typeof AuthenticatedAccountIndexRoute
-  '/clients': typeof AuthenticatedClientsIndexRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
-  '/products': typeof AuthenticatedProductsIndexRoute
+  '/app/create-organization': typeof AppCreateOrganizationIndexRoute
+  '/app/$organizationId/clients': typeof AppOrganizationIdClientsIndexRoute
+  '/app/$organizationId/dashboard': typeof AppOrganizationIdDashboardIndexRoute
+  '/app/$organizationId/products': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/app': typeof AppRouteRouteWithChildren
+  '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
+  '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
-  '/_authenticated/clients/': typeof AuthenticatedClientsIndexRoute
-  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
-  '/_authenticated/products/': typeof AuthenticatedProductsIndexRoute
+  '/app/create-organization/': typeof AppCreateOrganizationIndexRoute
+  '/app/$organizationId/clients/': typeof AppOrganizationIdClientsIndexRoute
+  '/app/$organizationId/dashboard/': typeof AppOrganizationIdDashboardIndexRoute
+  '/app/$organizationId/products/': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app'
+    | '/app/$organizationId'
+    | '/app/'
     | '/api/auth/$'
-    | '/account/'
-    | '/clients/'
-    | '/dashboard/'
-    | '/products/'
+    | '/app/create-organization/'
+    | '/app/$organizationId/clients/'
+    | '/app/$organizationId/dashboard/'
+    | '/app/$organizationId/products/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$' | '/account' | '/clients' | '/dashboard' | '/products'
+  to:
+    | '/'
+    | '/app/$organizationId'
+    | '/app'
+    | '/api/auth/$'
+    | '/app/create-organization'
+    | '/app/$organizationId/clients'
+    | '/app/$organizationId/dashboard'
+    | '/app/$organizationId/products'
   id:
     | '__root__'
     | '/'
-    | '/_authenticated'
+    | '/app'
+    | '/app/$organizationId'
+    | '/app/'
     | '/api/auth/$'
-    | '/_authenticated/account/'
-    | '/_authenticated/clients/'
-    | '/_authenticated/dashboard/'
-    | '/_authenticated/products/'
+    | '/app/create-organization/'
+    | '/app/$organizationId/clients/'
+    | '/app/$organizationId/dashboard/'
+    | '/app/$organizationId/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AppRouteRoute: typeof AppRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -126,33 +159,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/products/': {
-      id: '/_authenticated/products/'
-      path: '/products'
-      fullPath: '/products/'
-      preLoaderRoute: typeof AuthenticatedProductsIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/_authenticated/dashboard/': {
-      id: '/_authenticated/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/app/$organizationId': {
+      id: '/app/$organizationId'
+      path: '/$organizationId'
+      fullPath: '/app/$organizationId'
+      preLoaderRoute: typeof AppOrganizationIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/_authenticated/clients/': {
-      id: '/_authenticated/clients/'
-      path: '/clients'
-      fullPath: '/clients/'
-      preLoaderRoute: typeof AuthenticatedClientsIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/account/': {
-      id: '/_authenticated/account/'
-      path: '/account'
-      fullPath: '/account/'
-      preLoaderRoute: typeof AuthenticatedAccountIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/app/create-organization/': {
+      id: '/app/create-organization/'
+      path: '/create-organization'
+      fullPath: '/app/create-organization/'
+      preLoaderRoute: typeof AppCreateOrganizationIndexRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -161,29 +187,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/$organizationId/products/': {
+      id: '/app/$organizationId/products/'
+      path: '/products'
+      fullPath: '/app/$organizationId/products/'
+      preLoaderRoute: typeof AppOrganizationIdProductsIndexRouteImport
+      parentRoute: typeof AppOrganizationIdRouteRoute
+    }
+    '/app/$organizationId/dashboard/': {
+      id: '/app/$organizationId/dashboard/'
+      path: '/dashboard'
+      fullPath: '/app/$organizationId/dashboard/'
+      preLoaderRoute: typeof AppOrganizationIdDashboardIndexRouteImport
+      parentRoute: typeof AppOrganizationIdRouteRoute
+    }
+    '/app/$organizationId/clients/': {
+      id: '/app/$organizationId/clients/'
+      path: '/clients'
+      fullPath: '/app/$organizationId/clients/'
+      preLoaderRoute: typeof AppOrganizationIdClientsIndexRouteImport
+      parentRoute: typeof AppOrganizationIdRouteRoute
+    }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
-  AuthenticatedClientsIndexRoute: typeof AuthenticatedClientsIndexRoute
-  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
-  AuthenticatedProductsIndexRoute: typeof AuthenticatedProductsIndexRoute
+interface AppOrganizationIdRouteRouteChildren {
+  AppOrganizationIdClientsIndexRoute: typeof AppOrganizationIdClientsIndexRoute
+  AppOrganizationIdDashboardIndexRoute: typeof AppOrganizationIdDashboardIndexRoute
+  AppOrganizationIdProductsIndexRoute: typeof AppOrganizationIdProductsIndexRoute
 }
 
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
-  AuthenticatedClientsIndexRoute: AuthenticatedClientsIndexRoute,
-  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
-  AuthenticatedProductsIndexRoute: AuthenticatedProductsIndexRoute,
+const AppOrganizationIdRouteRouteChildren: AppOrganizationIdRouteRouteChildren =
+  {
+    AppOrganizationIdClientsIndexRoute: AppOrganizationIdClientsIndexRoute,
+    AppOrganizationIdDashboardIndexRoute: AppOrganizationIdDashboardIndexRoute,
+    AppOrganizationIdProductsIndexRoute: AppOrganizationIdProductsIndexRoute,
+  }
+
+const AppOrganizationIdRouteRouteWithChildren =
+  AppOrganizationIdRouteRoute._addFileChildren(
+    AppOrganizationIdRouteRouteChildren,
+  )
+
+interface AppRouteRouteChildren {
+  AppOrganizationIdRouteRoute: typeof AppOrganizationIdRouteRouteWithChildren
+  AppIndexRoute: typeof AppIndexRoute
+  AppCreateOrganizationIndexRoute: typeof AppCreateOrganizationIndexRoute
 }
 
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppOrganizationIdRouteRoute: AppOrganizationIdRouteRouteWithChildren,
+  AppIndexRoute: AppIndexRoute,
+  AppCreateOrganizationIndexRoute: AppCreateOrganizationIndexRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AppRouteRoute: AppRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

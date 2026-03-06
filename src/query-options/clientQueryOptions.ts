@@ -25,58 +25,68 @@ import type { GetPaginatedQueryOptions } from '@/utils/schemaUtils';
 
 export const clientQueryKeys = createQueryKeys({ baseKey: 'clients' });
 
-export const getAllClientsQueryOptions = ({ userId }: GetClientsParams) => {
+export const getAllClientsQueryOptions = ({
+	organizationId,
+}: GetClientsParams) => {
 	return queryOptions({
 		queryKey: clientQueryKeys.getAll({
-			userId,
+			organizationId,
 		}),
 		queryFn: () =>
-			handleQueryFn(() => getClientsServerFn({ data: { userId } })),
+			handleQueryFn(() => getClientsServerFn({ data: { organizationId } })),
 	});
 };
 
 export const getPaginatedClientsQueryOptions = ({
-	userId,
+	organizationId,
 	pagination,
 	orderBy,
 }: GetPaginatedQueryOptions) => {
 	return queryOptions({
-		queryKey: clientQueryKeys.getPaginated({ userId, orderBy, pagination }),
+		queryKey: clientQueryKeys.getPaginated({
+			organizationId,
+			orderBy,
+			pagination,
+		}),
 		queryFn: () =>
 			handleQueryFn(() =>
-				getPaginatedClientsServerFn({ data: { userId, pagination, orderBy } }),
+				getPaginatedClientsServerFn({
+					data: { organizationId, pagination, orderBy },
+				}),
 			),
 	});
 };
 
 export const getClientByIdQueryOptions = ({
 	id,
-	userId,
+	organizationId,
 }: GetClientByIdParams) => {
 	return queryOptions({
-		queryKey: clientQueryKeys.getById({ id, userId }),
+		queryKey: clientQueryKeys.getById({ id, organizationId }),
 		queryFn: () =>
-			handleQueryFn(() => getClientByIdServerFn({ data: { id, userId } })),
+			handleQueryFn(() =>
+				getClientByIdServerFn({ data: { id, organizationId } }),
+			),
 	});
 };
 
-export const createClientMutationOptions = ({ userId }: QueryKeyBase) =>
+export const createClientMutationOptions = ({ organizationId }: QueryKeyBase) =>
 	mutationOptions({
 		mutationFn: (params: InsertClientParams) =>
 			handleMutationFn(() => createClientServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ organizationId })),
 	});
 
-export const updateClientMutationOptions = ({ userId }: QueryKeyBase) =>
+export const updateClientMutationOptions = ({ organizationId }: QueryKeyBase) =>
 	mutationOptions({
 		mutationFn: (params: UpdateClientParams) =>
 			handleMutationFn(() => updateClientServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ organizationId })),
 	});
 
-export const deleteClientMutationOptions = ({ userId }: QueryKeyBase) =>
+export const deleteClientMutationOptions = ({ organizationId }: QueryKeyBase) =>
 	mutationOptions({
 		mutationFn: (params: DeleteClientParams) =>
 			handleMutationFn(() => deleteClientServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(clientQueryKeys.base({ organizationId })),
 	});

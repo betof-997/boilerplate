@@ -22,11 +22,11 @@ import { and, eq } from 'drizzle-orm';
 
 export const getClientsServerFn = createServerFn()
 	.inputValidator(getClientsParamsSchema)
-	.handler(async ({ data: { userId } }) => {
+	.handler(async ({ data: { organizationId } }) => {
 		try {
 			const clients = await db.query.clientTable.findMany({
 				where: {
-					userId,
+					organizationId,
 				},
 			});
 
@@ -38,38 +38,40 @@ export const getClientsServerFn = createServerFn()
 
 export const getPaginatedClientsServerFn = createServerFn()
 	.inputValidator(getPaginatedQueryOptionsSchema)
-	.handler(async ({ data: { userId, pagination, orderBy: orderByBase } }) => {
-		try {
-			const { limit, offset } = getPaginatedQueryLimitOffset({ pagination });
-			const orderBy = getPaginatedQueryOrderBy({ orderBy: orderByBase });
-			const extras = getPaginatedQueryExtras();
+	.handler(
+		async ({ data: { organizationId, pagination, orderBy: orderByBase } }) => {
+			try {
+				const { limit, offset } = getPaginatedQueryLimitOffset({ pagination });
+				const orderBy = getPaginatedQueryOrderBy({ orderBy: orderByBase });
+				const extras = getPaginatedQueryExtras();
 
-			const clients = await db.query.clientTable.findMany({
-				where: {
-					userId,
-				},
-				offset,
-				limit,
-				orderBy,
-				extras,
-			});
+				const clients = await db.query.clientTable.findMany({
+					where: {
+						organizationId,
+					},
+					offset,
+					limit,
+					orderBy,
+					extras,
+				});
 
-			return createSuccessResponse({
-				data: createPaginatedData(clients),
-			});
-		} catch (error) {
-			throw createErrorResponse({ error });
-		}
-	});
+				return createSuccessResponse({
+					data: createPaginatedData(clients),
+				});
+			} catch (error) {
+				throw createErrorResponse({ error });
+			}
+		},
+	);
 
 export const getClientByIdServerFn = createServerFn()
 	.inputValidator(getClientByIdParamsSchema)
-	.handler(async ({ data: { id, userId } }) => {
+	.handler(async ({ data: { id, organizationId } }) => {
 		try {
 			const client = await db.query.clientTable.findFirst({
 				where: {
 					id,
-					userId,
+					organizationId,
 				},
 			});
 
@@ -81,22 +83,25 @@ export const getClientByIdServerFn = createServerFn()
 
 type CheckEmailExistsParams = {
 	email: string;
-	userId: string;
+	organizationId: string;
 };
-const checkEmailExists = ({ email, userId }: CheckEmailExistsParams) => {
+const checkEmailExists = ({
+	email,
+	organizationId,
+}: CheckEmailExistsParams) => {
 	return db.query.clientTable.findFirst({
 		where: {
 			email,
-			userId,
+			organizationId,
 		},
 	});
 };
 
 export const createClientServerFn = createServerFn()
 	.inputValidator(insertClientParamsSchema)
-	.handler(async ({ data: { name, email, userId } }) => {
+	.handler(async ({ data: { name, email, organizationId } }) => {
 		try {
-			const emailExists = await checkEmailExists({ email, userId });
+			const emailExists = await checkEmailExists({ email, organizationId });
 			if (emailExists) {
 				throw createErrorResponse({
 					statusCode: HTTP_STATUS_CODES.BAD_REQUEST,
@@ -106,7 +111,7 @@ export const createClientServerFn = createServerFn()
 
 			const client = await db
 				.insert(clientTable)
-				.values({ name, email, userId })
+				.values({ name, email, organizationId })
 				.returning();
 
 			return createSuccessResponse({
@@ -122,17 +127,17 @@ export const createClientServerFn = createServerFn()
 type CheckEmailExistsForUpdateParams = {
 	email: string;
 	id: string;
-	userId: string;
+	organizationId: string;
 };
 const checkEmailExistsForUpdate = ({
 	email,
 	id,
-	userId,
+	organizationId,
 }: CheckEmailExistsForUpdateParams) => {
 	return db.query.clientTable.findFirst({
 		where: {
 			email,
-			userId,
+			organizationId,
 			id: {
 				NOT: {
 					eq: id,
@@ -144,12 +149,12 @@ const checkEmailExistsForUpdate = ({
 
 export const updateClientServerFn = createServerFn()
 	.inputValidator(updateClientParamsSchema)
-	.handler(async ({ data: { id, name, email, userId } }) => {
+	.handler(async ({ data: { id, name, email, organizationId } }) => {
 		try {
 			const emailExists = await checkEmailExistsForUpdate({
 				email,
 				id,
-				userId,
+				organizationId,
 			});
 			if (emailExists) {
 				throw createErrorResponse({
@@ -160,8 +165,13 @@ export const updateClientServerFn = createServerFn()
 
 			const client = await db
 				.update(clientTable)
-				.set({ name, email, userId })
-				.where(and(eq(clientTable.id, id), eq(clientTable.userId, userId)))
+				.set({ name, email, organizationId })
+				.where(
+					and(
+						eq(clientTable.id, id),
+						eq(clientTable.organizationId, organizationId),
+					),
+				)
 				.returning();
 
 			return createSuccessResponse({
@@ -175,11 +185,16 @@ export const updateClientServerFn = createServerFn()
 
 export const deleteClientServerFn = createServerFn()
 	.inputValidator(deleteClientParamsSchema)
-	.handler(async ({ data: { id, userId } }) => {
+	.handler(async ({ data: { id, organizationId } }) => {
 		try {
 			const client = await db
 				.delete(clientTable)
-				.where(and(eq(clientTable.id, id), eq(clientTable.userId, userId)))
+				.where(
+					and(
+						eq(clientTable.id, id),
+						eq(clientTable.organizationId, organizationId),
+					),
+				)
 				.returning();
 
 			return createSuccessResponse({
