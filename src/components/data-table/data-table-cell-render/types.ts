@@ -61,7 +61,7 @@ export type DataTableAccessorKeyColumn<TData> = {
 	canHide?: boolean;
 };
 
-export type DataTableColumnRenderProps<TData> = {
+export type DataTableCellRenderProps<TData> = {
 	data: TData;
 	column: DataTableAccessorKeyColumn<TData>;
 };

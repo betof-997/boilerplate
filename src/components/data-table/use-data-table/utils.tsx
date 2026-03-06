@@ -12,9 +12,9 @@ import type {
 import type {
 	DataTableAccessorKeyColumn,
 	DataTableFormatStyle,
-} from '../data-table-column-render/types';
+} from '../data-table-cell-render/types';
 import { createRowActionsColumn } from '../utils';
-import { DataTableColumnRender } from '../data-table-column-render';
+import { DataTableCellRender } from '../data-table-cell-render';
 import type { ReactNode } from 'react';
 import { toTitleCase } from '@/utils/stringUtils';
 
@@ -153,7 +153,7 @@ export const resolveDataTableColumn = <TData,>({
 			enableHiding: column.canHide,
 			meta: getColumnMeta(column.format?.style),
 			cell: ({ row }) => (
-				<DataTableColumnRender
+				<DataTableCellRender
 					data={row.original}
 					column={column}
 				/>

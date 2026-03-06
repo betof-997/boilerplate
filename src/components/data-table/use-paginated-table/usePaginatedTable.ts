@@ -20,7 +20,7 @@ export const usePaginatedTable = <TData>() => {
 		desc: true,
 	});
 
-	const getQueryOptions = (): GetPaginatedQueryOptions => {
+	const getPaginatedQueryOptions = (): GetPaginatedQueryOptions => {
 		return {
 			userId: user.id,
 			pagination,
@@ -28,7 +28,7 @@ export const usePaginatedTable = <TData>() => {
 		};
 	};
 
-	const getTableOptions = ({
+	const getPaginatedTableOptions = ({
 		data,
 	}: {
 		data?: PaginatedResponseData<TData>;
@@ -49,7 +49,7 @@ export const usePaginatedTable = <TData>() => {
 	};
 
 	return {
-		getQueryOptions,
-		getTableOptions,
+		getPaginatedQueryOptions,
+		getPaginatedTableOptions,
 	};
 };

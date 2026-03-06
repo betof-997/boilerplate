@@ -10,11 +10,11 @@ import { usePaginatedTable } from '@/components/data-table/use-paginated-table';
 import type { SelectClient } from '@/schemas/clientSchemas';
 
 export const ClientTable = () => {
-	const { getQueryOptions, getTableOptions } =
+	const { getPaginatedQueryOptions, getPaginatedTableOptions } =
 		usePaginatedTable<SelectClient>();
 
 	const { data, isFetching } = useQuery(
-		getPaginatedClientsQueryOptions(getQueryOptions()),
+		getPaginatedClientsQueryOptions(getPaginatedQueryOptions()),
 	);
 	const columns = useClientTableColumns();
 	const toolbarActions = useClientTableToolbarActions();
@@ -26,7 +26,7 @@ export const ClientTable = () => {
 			isLoading={isFetching}
 			toolbarActions={toolbarActions}
 			rowActions={rowActions}
-			{...getTableOptions({ data })}
+			{...getPaginatedTableOptions({ data })}
 		/>
 	);
 };

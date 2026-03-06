@@ -1,7 +1,7 @@
 import { format as formatDate } from 'date-fns';
 import type { FC } from 'react';
 import type {
-	DataTableColumnRenderProps,
+	DataTableCellRenderProps,
 	DataTableCulumnFormat,
 	DataTableCulumnFormatConfig,
 } from './types';
@@ -190,10 +190,10 @@ const cellMap = {
 	[K in DataTableCulumnFormat]: FC<CellProps<K>>;
 };
 
-export const DataTableColumnRender = <TData,>({
+export const DataTableCellRender = <TData,>({
 	data,
 	column,
-}: DataTableColumnRenderProps<TData>) => {
+}: DataTableCellRenderProps<TData>) => {
 	const format = inferDataTableColumnFormat({ value: data, column });
 
 	const Cell = cellMap[format.kind];

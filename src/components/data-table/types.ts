@@ -6,7 +6,7 @@ import type { DropdownMenuItemProps } from '@/components/dropdown-menu';
 import type {
 	DataTableAccessorKeyColumn,
 	DataTableIdColumn,
-} from './data-table-column-render/types';
+} from './data-table-cell-render/types';
 import type {
 	DataTableOrderByState,
 	DataTablePaginationState,
