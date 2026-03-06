@@ -1,15 +1,24 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { BadgeCheckIcon, ChevronsUpDownIcon, LogOutIcon } from 'lucide-react';
+import {
+	BadgeCheckIcon,
+	ChevronsUpDownIcon,
+	LogOutIcon,
+	MoonIcon,
+	SunIcon,
+} from 'lucide-react';
 import { DropdownMenu } from '@/components/dropdown-menu';
 import { Sidebar } from '@/components/sidebar';
 import { authClient } from '@/lib/auth/authClient';
 import { Route as AuthenticatedRoute } from '../../../route';
 import { useAccountDrawer } from '@/hooks/use-account-drawer/useAccountDrawer';
+import { useTheme } from '@/hooks/use-theme/useTheme';
 
 export const SidebarUserMenu = () => {
 	const queryClient = useQueryClient();
 	const { user } = AuthenticatedRoute.useRouteContext();
 	const setIsAccountDrawerOpen = useAccountDrawer((state) => state.setIsOpen);
+	const toggleTheme = useTheme((state) => state.toggleTheme);
+	const theme = useTheme((state) => state.theme);
 
 	const displayName = user.name ?? user.email;
 	const initials = displayName
@@ -99,6 +108,10 @@ export const SidebarUserMenu = () => {
 				<DropdownMenu.Item onSelect={() => setIsAccountDrawerOpen(true)}>
 					<BadgeCheckIcon />
 					Account
+				</DropdownMenu.Item>
+				<DropdownMenu.Item onSelect={() => toggleTheme()}>
+					{theme === 'light' ? <SunIcon /> : <MoonIcon />}
+					{theme === 'light' ? 'Light mode' : 'Dark mode'}
 				</DropdownMenu.Item>
 
 				<DropdownMenu.Separator />

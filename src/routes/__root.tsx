@@ -25,7 +25,7 @@ export const Route = createRootRouteWithContext<AppRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning={true}>
 			<head>
 				<HeadContent />
 
