@@ -23,45 +23,55 @@ import { mutationOptions, queryOptions } from '@tanstack/react-query';
 
 export const productQueryKeys = createQueryKeys({ baseKey: 'products' });
 
-export const getAllProductsQueryOptions = ({ userId }: GetProductsParams) => {
+export const getAllProductsQueryOptions = ({
+	organizationId,
+}: GetProductsParams) => {
 	return queryOptions({
-		queryKey: productQueryKeys.getAll({ userId }),
+		queryKey: productQueryKeys.getAll({ organizationId }),
 		queryFn: () =>
-			handleQueryFn(() => getProductsServerFn({ data: { userId } })),
+			handleQueryFn(() => getProductsServerFn({ data: { organizationId } })),
 	});
 };
 
 export const getProductByIdQueryOptions = ({
 	id,
-	userId,
+	organizationId,
 }: GetProductByIdParams) => {
 	return queryOptions({
-		queryKey: productQueryKeys.getById({ id, userId }),
+		queryKey: productQueryKeys.getById({ id, organizationId }),
 		queryFn: () =>
-			handleQueryFn(() => getProductByIdServerFn({ data: { id, userId } })),
+			handleQueryFn(() =>
+				getProductByIdServerFn({ data: { id, organizationId } }),
+			),
 	});
 };
 
-export const createProductMutationOptions = ({ userId }: QueryKeyBase) => {
+export const createProductMutationOptions = ({
+	organizationId,
+}: QueryKeyBase) => {
 	return mutationOptions({
 		mutationFn: (params: InsertProductParams) =>
 			handleMutationFn(() => createProductServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(productQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(productQueryKeys.base({ organizationId })),
 	});
 };
 
-export const updateProductMutationOptions = ({ userId }: QueryKeyBase) => {
+export const updateProductMutationOptions = ({
+	organizationId,
+}: QueryKeyBase) => {
 	return mutationOptions({
 		mutationFn: (params: UpdateProductParams) =>
 			handleMutationFn(() => updateProductServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(productQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(productQueryKeys.base({ organizationId })),
 	});
 };
 
-export const deleteProductMutationOptions = ({ userId }: QueryKeyBase) => {
+export const deleteProductMutationOptions = ({
+	organizationId,
+}: QueryKeyBase) => {
 	return mutationOptions({
 		mutationFn: (params: DeleteProductParams) =>
 			handleMutationFn(() => deleteProductServerFn({ data: params })),
-		onSuccess: invalidateOnSuccess(productQueryKeys.base({ userId })),
+		onSuccess: invalidateOnSuccess(productQueryKeys.base({ organizationId })),
 	});
 };

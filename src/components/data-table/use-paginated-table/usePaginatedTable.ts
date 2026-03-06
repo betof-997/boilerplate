@@ -1,4 +1,3 @@
-import { useUser } from '@/hooks/use-user';
 import { useState } from 'react';
 import type {
 	DataTableOrderByState,
@@ -8,9 +7,10 @@ import type { GetPaginatedQueryOptions } from '@/utils/schemaUtils';
 import type { DataTableServerProps } from '../types';
 import type { PaginatedResponseData } from '@/utils/serverFnsUtils';
 import { DATA_TABLE_DEFAULT_PAGINATION_STATE } from '../use-data-table/consts';
+import { useSelectedOrganization } from '@/routes/app/$organizationId/-lib/hooks/use-selected-organization';
 
 export const usePaginatedTable = <TData>() => {
-	const user = useUser();
+	const selectedOrganization = useSelectedOrganization();
 
 	const [pagination, setPagination] = useState<DataTablePaginationState>(
 		DATA_TABLE_DEFAULT_PAGINATION_STATE,
@@ -22,7 +22,7 @@ export const usePaginatedTable = <TData>() => {
 
 	const getPaginatedQueryOptions = (): GetPaginatedQueryOptions => {
 		return {
-			userId: user.id,
+			organizationId: selectedOrganization.id,
 			pagination,
 			orderBy,
 		};

@@ -5,7 +5,7 @@ import {
 import z from 'zod';
 
 export const getPaginatedQueryOptionsSchema = z.object({
-	userId: z.string(),
+	organizationId: z.string(),
 	pagination: dataTablePaginationStateSchema,
 	orderBy: dataTableOrderByStateSchema,
 });

@@ -1,6 +1,6 @@
 import * as s from 'drizzle-orm/sqlite-core';
 import * as u from './utils';
-import { userIdColumn } from './userTable';
+import { organizationIdColumn } from './organizationTable';
 
 export const clientTable = s.sqliteTable('client', {
 	id: u.idColumn(),
@@ -8,7 +8,7 @@ export const clientTable = s.sqliteTable('client', {
 	name: s.text().notNull(),
 	email: s.text().notNull().unique(),
 
-	userId: userIdColumn(),
+	organizationId: organizationIdColumn(),
 	createdAt: u.createdAtColumn(),
 	updatedAt: u.updatedAtColumn(),
 });

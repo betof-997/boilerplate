@@ -13,7 +13,7 @@ export const Route = createFileRoute('/')({
 		);
 
 		if (session) {
-			throw redirect({ to: '/dashboard' });
+			throw redirect({ to: '/app' });
 		}
 	},
 	component: RouteComponent,

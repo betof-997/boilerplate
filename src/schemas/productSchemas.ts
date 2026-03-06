@@ -9,13 +9,13 @@ export const insertProductSchema = createInsertSchema(productTable);
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 
 export const getProductsParamsSchema = selectProductSchema.pick({
-	userId: true,
+	organizationId: true,
 });
 export type GetProductsParams = z.infer<typeof getProductsParamsSchema>;
 
 export const getProductByIdParamsSchema = selectProductSchema.pick({
 	id: true,
-	userId: true,
+	organizationId: true,
 });
 export type GetProductByIdParams = z.infer<typeof getProductByIdParamsSchema>;
 
@@ -27,19 +27,19 @@ export const upsertProductFormSchema = z.object({
 export type UpsertProductForm = z.infer<typeof upsertProductFormSchema>;
 
 export const insertProductParamsSchema = z.object({
-	...selectProductSchema.pick({ userId: true }).shape,
+	...selectProductSchema.pick({ organizationId: true }).shape,
 	...upsertProductFormSchema.shape,
 });
 export type InsertProductParams = z.infer<typeof insertProductParamsSchema>;
 
 export const updateProductParamsSchema = z.object({
-	...selectProductSchema.pick({ id: true, userId: true }).shape,
+	...selectProductSchema.pick({ id: true, organizationId: true }).shape,
 	...upsertProductFormSchema.shape,
 });
 export type UpdateProductParams = z.infer<typeof updateProductParamsSchema>;
 
 export const deleteProductParamsSchema = selectProductSchema.pick({
 	id: true,
-	userId: true,
+	organizationId: true,
 });
 export type DeleteProductParams = z.infer<typeof deleteProductParamsSchema>;

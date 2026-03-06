@@ -1,4 +1,4 @@
-import { useUser } from '@/hooks/use-user';
+import { useUser } from '@/routes/app/-lib/hooks/use-user/useUser';
 
 export const useAccountDrawerFormDefaultValues = () => {
 	const user = useUser();

@@ -4,7 +4,7 @@ import { useAppForm } from '@/hooks/use-app-form';
 import { updateUserFormSchema } from '@/schemas/userSchemas';
 import { useAccountDrawerFormDefaultValues } from './utils';
 import { TextInput } from '@/components/text-input';
-import { useUser } from '@/hooks/use-user';
+import { useUser } from '@/routes/app/-lib/hooks/use-user/useUser';
 
 export const AccountDrawerForm = () => {
 	const user = useUser();

@@ -17,10 +17,10 @@ import { and, eq } from 'drizzle-orm';
 
 export const getProductsServerFn = createServerFn()
 	.inputValidator(getProductsParamsSchema)
-	.handler(async ({ data: { userId } }) => {
+	.handler(async ({ data: { organizationId } }) => {
 		try {
 			const products = await db.query.productTable.findMany({
-				where: { userId },
+				where: { organizationId },
 			});
 			return createSuccessResponse({ data: products });
 		} catch (error) {
@@ -30,12 +30,12 @@ export const getProductsServerFn = createServerFn()
 
 export const getProductByIdServerFn = createServerFn()
 	.inputValidator(getProductByIdParamsSchema)
-	.handler(async ({ data: { id, userId } }) => {
+	.handler(async ({ data: { id, organizationId } }) => {
 		try {
 			const product = await db.query.productTable.findFirst({
 				where: {
 					id,
-					userId,
+					organizationId,
 				},
 			});
 			return createSuccessResponse({ data: product });
@@ -46,11 +46,11 @@ export const getProductByIdServerFn = createServerFn()
 
 export const createProductServerFn = createServerFn()
 	.inputValidator(insertProductParamsSchema)
-	.handler(async ({ data: { name, description, price, userId } }) => {
+	.handler(async ({ data: { name, description, price, organizationId } }) => {
 		try {
 			const product = await db
 				.insert(productTable)
-				.values({ name, description, price, userId })
+				.values({ name, description, price, organizationId })
 				.returning();
 			return createSuccessResponse({
 				data: product[0],
@@ -64,29 +64,41 @@ export const createProductServerFn = createServerFn()
 
 export const updateProductServerFn = createServerFn()
 	.inputValidator(updateProductParamsSchema)
-	.handler(async ({ data: { id, name, description, price, userId } }) => {
-		try {
-			const product = await db
-				.update(productTable)
-				.set({ name, description, price, userId })
-				.where(and(eq(productTable.id, id), eq(productTable.userId, userId)))
-				.returning();
-			return createSuccessResponse({
-				data: product[0],
-				message: 'Product updated successfully',
-			});
-		} catch (error) {
-			throw createErrorResponse({ error });
-		}
-	});
+	.handler(
+		async ({ data: { id, name, description, price, organizationId } }) => {
+			try {
+				const product = await db
+					.update(productTable)
+					.set({ name, description, price, organizationId })
+					.where(
+						and(
+							eq(productTable.id, id),
+							eq(productTable.organizationId, organizationId),
+						),
+					)
+					.returning();
+				return createSuccessResponse({
+					data: product[0],
+					message: 'Product updated successfully',
+				});
+			} catch (error) {
+				throw createErrorResponse({ error });
+			}
+		},
+	);
 
 export const deleteProductServerFn = createServerFn()
 	.inputValidator(deleteProductParamsSchema)
-	.handler(async ({ data: { id, userId } }) => {
+	.handler(async ({ data: { id, organizationId } }) => {
 		try {
 			const product = await db
 				.delete(productTable)
-				.where(and(eq(productTable.id, id), eq(productTable.userId, userId)))
+				.where(
+					and(
+						eq(productTable.id, id),
+						eq(productTable.organizationId, organizationId),
+					),
+				)
 				.returning();
 			return createSuccessResponse({
 				data: product[0],

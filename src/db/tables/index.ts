@@ -5,3 +5,7 @@ export { verificationTable } from './verificationTable';
 export { productTable } from './productTable';
 export { clientTable } from './clientTable';
 export { organizationTable } from './organizationTable';
+export {
+	organizationMemberTable,
+	organizationMemberRole,
+} from './organizationMemberTable';
