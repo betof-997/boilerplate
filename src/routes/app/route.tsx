@@ -12,12 +12,10 @@ export const Route = createFileRoute('/app')({
 			throw redirect({ to: '/' });
 		}
 
-		const organizations = await context.queryClient.ensureQueryData(
+		context.queryClient.prefetchQuery(
 			getUserOrganizationsQueryOptions({
 				userId: session.user.id,
 			}),
 		);
-
-		return { user: session.user, organizations };
 	},
 });

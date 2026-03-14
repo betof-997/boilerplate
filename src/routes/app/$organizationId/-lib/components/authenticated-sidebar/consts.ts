@@ -5,7 +5,7 @@ export const authenticatedSidebarNavItems: AuthenticatedSidebarNavItem[] = [
 	{
 		type: 'link',
 		label: 'Dashboard',
-		to: '/app/$organizationId/dashboard',
+		to: '/app/$organizationId',
 		icon: LayoutDashboardIcon,
 	},
 	{

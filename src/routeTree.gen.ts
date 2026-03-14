@@ -14,9 +14,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppOrganizationIdRouteRouteImport } from './routes/app/$organizationId/route'
 import { Route as AppCreateOrganizationIndexRouteImport } from './routes/app/create-organization/index'
+import { Route as AppOrganizationIdIndexRouteImport } from './routes/app/$organizationId/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AppOrganizationIdProductsIndexRouteImport } from './routes/app/$organizationId/products/index'
-import { Route as AppOrganizationIdDashboardIndexRouteImport } from './routes/app/$organizationId/dashboard/index'
 import { Route as AppOrganizationIdClientsIndexRouteImport } from './routes/app/$organizationId/clients/index'
 
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -45,6 +45,11 @@ const AppCreateOrganizationIndexRoute =
     path: '/create-organization/',
     getParentRoute: () => AppRouteRoute,
   } as any)
+const AppOrganizationIdIndexRoute = AppOrganizationIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppOrganizationIdRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -54,12 +59,6 @@ const AppOrganizationIdProductsIndexRoute =
   AppOrganizationIdProductsIndexRouteImport.update({
     id: '/products/',
     path: '/products/',
-    getParentRoute: () => AppOrganizationIdRouteRoute,
-  } as any)
-const AppOrganizationIdDashboardIndexRoute =
-  AppOrganizationIdDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
     getParentRoute: () => AppOrganizationIdRouteRoute,
   } as any)
 const AppOrganizationIdClientsIndexRoute =
@@ -75,19 +74,18 @@ export interface FileRoutesByFullPath {
   '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/$organizationId/': typeof AppOrganizationIdIndexRoute
   '/app/create-organization/': typeof AppCreateOrganizationIndexRoute
   '/app/$organizationId/clients/': typeof AppOrganizationIdClientsIndexRoute
-  '/app/$organizationId/dashboard/': typeof AppOrganizationIdDashboardIndexRoute
   '/app/$organizationId/products/': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
   '/app': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/$organizationId': typeof AppOrganizationIdIndexRoute
   '/app/create-organization': typeof AppCreateOrganizationIndexRoute
   '/app/$organizationId/clients': typeof AppOrganizationIdClientsIndexRoute
-  '/app/$organizationId/dashboard': typeof AppOrganizationIdDashboardIndexRoute
   '/app/$organizationId/products': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRoutesById {
@@ -97,9 +95,9 @@ export interface FileRoutesById {
   '/app/$organizationId': typeof AppOrganizationIdRouteRouteWithChildren
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/$organizationId/': typeof AppOrganizationIdIndexRoute
   '/app/create-organization/': typeof AppCreateOrganizationIndexRoute
   '/app/$organizationId/clients/': typeof AppOrganizationIdClientsIndexRoute
-  '/app/$organizationId/dashboard/': typeof AppOrganizationIdDashboardIndexRoute
   '/app/$organizationId/products/': typeof AppOrganizationIdProductsIndexRoute
 }
 export interface FileRouteTypes {
@@ -110,19 +108,18 @@ export interface FileRouteTypes {
     | '/app/$organizationId'
     | '/app/'
     | '/api/auth/$'
+    | '/app/$organizationId/'
     | '/app/create-organization/'
     | '/app/$organizationId/clients/'
-    | '/app/$organizationId/dashboard/'
     | '/app/$organizationId/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/app/$organizationId'
     | '/app'
     | '/api/auth/$'
+    | '/app/$organizationId'
     | '/app/create-organization'
     | '/app/$organizationId/clients'
-    | '/app/$organizationId/dashboard'
     | '/app/$organizationId/products'
   id:
     | '__root__'
@@ -131,9 +128,9 @@ export interface FileRouteTypes {
     | '/app/$organizationId'
     | '/app/'
     | '/api/auth/$'
+    | '/app/$organizationId/'
     | '/app/create-organization/'
     | '/app/$organizationId/clients/'
-    | '/app/$organizationId/dashboard/'
     | '/app/$organizationId/products/'
   fileRoutesById: FileRoutesById
 }
@@ -180,6 +177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCreateOrganizationIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/$organizationId/': {
+      id: '/app/$organizationId/'
+      path: '/'
+      fullPath: '/app/$organizationId/'
+      preLoaderRoute: typeof AppOrganizationIdIndexRouteImport
+      parentRoute: typeof AppOrganizationIdRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -194,13 +198,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppOrganizationIdProductsIndexRouteImport
       parentRoute: typeof AppOrganizationIdRouteRoute
     }
-    '/app/$organizationId/dashboard/': {
-      id: '/app/$organizationId/dashboard/'
-      path: '/dashboard'
-      fullPath: '/app/$organizationId/dashboard/'
-      preLoaderRoute: typeof AppOrganizationIdDashboardIndexRouteImport
-      parentRoute: typeof AppOrganizationIdRouteRoute
-    }
     '/app/$organizationId/clients/': {
       id: '/app/$organizationId/clients/'
       path: '/clients'
@@ -212,15 +209,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppOrganizationIdRouteRouteChildren {
+  AppOrganizationIdIndexRoute: typeof AppOrganizationIdIndexRoute
   AppOrganizationIdClientsIndexRoute: typeof AppOrganizationIdClientsIndexRoute
-  AppOrganizationIdDashboardIndexRoute: typeof AppOrganizationIdDashboardIndexRoute
   AppOrganizationIdProductsIndexRoute: typeof AppOrganizationIdProductsIndexRoute
 }
 
 const AppOrganizationIdRouteRouteChildren: AppOrganizationIdRouteRouteChildren =
   {
+    AppOrganizationIdIndexRoute: AppOrganizationIdIndexRoute,
     AppOrganizationIdClientsIndexRoute: AppOrganizationIdClientsIndexRoute,
-    AppOrganizationIdDashboardIndexRoute: AppOrganizationIdDashboardIndexRoute,
     AppOrganizationIdProductsIndexRoute: AppOrganizationIdProductsIndexRoute,
   }
 

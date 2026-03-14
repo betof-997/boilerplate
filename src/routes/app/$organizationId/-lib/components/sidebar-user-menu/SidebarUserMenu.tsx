@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
 import {
 	BadgeCheckIcon,
 	ChevronsUpDownIcon,
@@ -8,14 +7,16 @@ import {
 } from 'lucide-react';
 import { DropdownMenu } from '@/components/dropdown-menu';
 import { Sidebar } from '@/components/sidebar';
-import { authClient } from '@/lib/auth/authClient';
-import { Route as AuthenticatedRoute } from '../../../route';
 import { useAccountDrawer } from '@/hooks/use-account-drawer/useAccountDrawer';
 import { useTheme } from '@/hooks/use-theme/useTheme';
+import { useLogOut } from '@/hooks/use-log-out/useLogOut';
+import { useUser } from '@/routes/app/-lib/hooks/use-user';
 
 export const SidebarUserMenu = () => {
-	const queryClient = useQueryClient();
-	const { user } = AuthenticatedRoute.useRouteContext();
+	const user = useUser();
+
+	const { handleLogOut } = useLogOut();
+
 	const setIsAccountDrawerOpen = useAccountDrawer((state) => state.setIsOpen);
 	const toggleTheme = useTheme((state) => state.toggleTheme);
 	const theme = useTheme((state) => state.theme);
@@ -27,17 +28,6 @@ export const SidebarUserMenu = () => {
 		.slice(0, 2)
 		.map((part) => part[0]?.toUpperCase() ?? '')
 		.join('');
-
-	const handleLogout = async () => {
-		await authClient.signOut({
-			fetchOptions: {
-				onSuccess: () => {
-					queryClient.clear();
-					window.location.href = '/';
-				},
-			},
-		});
-	};
 
 	return (
 		<DropdownMenu.Root>
@@ -116,7 +106,7 @@ export const SidebarUserMenu = () => {
 
 				<DropdownMenu.Separator />
 
-				<DropdownMenu.Item onSelect={() => void handleLogout()}>
+				<DropdownMenu.Item onSelect={() => handleLogOut()}>
 					<LogOutIcon />
 					Log out
 				</DropdownMenu.Item>

@@ -1,14 +1,11 @@
 import { Link } from '@tanstack/react-router';
-import { Sidebar, useSidebar } from '@/components/sidebar';
-import { appConfig } from '@/utils/appConfig';
+import { Sidebar } from '@/components/sidebar';
 import { SidebarUserMenu } from '../sidebar-user-menu';
 import { authenticatedSidebarNavItems } from './consts';
 import type { SidebarNavLinkItem } from './types';
-import { cn } from '@/lib/utils';
+import { SidebarOrganizationSelector } from '../sidebar-organization-selector';
 
 export const AuthenticatedSidebar = () => {
-	const isOpen = useSidebar((s) => s.open);
-
 	return (
 		<Sidebar.Panel
 			data-slot='authenticated-sidebar'
@@ -18,15 +15,11 @@ export const AuthenticatedSidebar = () => {
 				data-slot='authenticated-sidebar-header'
 				className='flex items-center justify-between border-b border-sidebar-border p-2'
 			>
-				<p
-					className={cn(
-						'truncate px-2 text-sm font-semibold text-sidebar-foreground transition-opacity -mr-6',
-						isOpen ? '' : 'opacity-0',
-					)}
-				>
-					{appConfig.appName}
-				</p>
-				<Sidebar.Trigger className='bg-sidebar' />
+				<SidebarOrganizationSelector />
+
+				<span className='pl-0.5'>
+					<Sidebar.Trigger className='bg-sidebar' />
+				</span>
 			</div>
 
 			<Sidebar.Content data-slot='authenticated-sidebar-content'>

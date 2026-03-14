@@ -25,5 +25,4 @@ export const getUserOrganizationsQueryOptions = ({
 		}),
 		queryFn: () =>
 			handleQueryFn(() => getUserOrganizationsServerFn({ data: { userId } })),
-		staleTime: 1000 * 60 * 2, // 2 minutes
 	});

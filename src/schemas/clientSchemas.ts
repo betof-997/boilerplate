@@ -8,7 +8,9 @@ export type SelectClient = z.infer<typeof selectClientSchema>;
 export const InsertClientSchema = createInsertSchema(clientTable);
 export type InsertClient = z.infer<typeof InsertClientSchema>;
 
-export const getClientsParamsSchema = selectClientSchema.pick({ organizationId: true });
+export const getClientsParamsSchema = selectClientSchema.pick({
+	organizationId: true,
+});
 export type GetClientsParams = z.infer<typeof getClientsParamsSchema>;
 
 export const getClientByIdParamsSchema = selectClientSchema.pick({

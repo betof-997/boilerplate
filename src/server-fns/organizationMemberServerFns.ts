@@ -12,12 +12,12 @@ export const getUserOrganizationsServerFn = createServerFn()
 		try {
 			const organizations = await db.query.organizationTable.findMany({
 				where: {
-					organizationMembers: {
+					members: {
 						userId,
 					},
 				},
 				with: {
-					organizationMembers: {
+					members: {
 						where: {
 							userId,
 						},

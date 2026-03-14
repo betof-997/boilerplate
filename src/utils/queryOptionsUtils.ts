@@ -32,6 +32,7 @@ type CreateQueryKeysParams = {
 };
 export const createQueryKeys = ({ baseKey }: CreateQueryKeysParams) => {
 	return {
+		all: () => [baseKey],
 		base: ({ organizationId }: QueryKeyBase) => [baseKey, organizationId],
 		getAll: ({ organizationId }: QueryKeyGetAll) => [
 			baseKey,
@@ -61,8 +62,8 @@ export const createQueryKeys = ({ baseKey }: CreateQueryKeysParams) => {
 export const invalidateOnSuccess = (
 	queryKey: unknown[],
 ): MutationOptions<unknown, unknown, unknown, unknown>['onSuccess'] => {
-	return (_, __, ___, context) => {
-		context.client.invalidateQueries({ queryKey });
+	return async (_, __, ___, context) => {
+		await context.client.invalidateQueries({ queryKey });
 	};
 };
 

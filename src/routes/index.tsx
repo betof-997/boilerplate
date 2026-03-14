@@ -5,6 +5,7 @@ import { Button } from '@/components/button';
 import { authClient } from '@/lib/auth/authClient';
 import { authSessionQueryOptions } from '@/lib/auth/authServer';
 import { appConfig } from '@/utils/appConfig';
+import type { LinkProps } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
 	beforeLoad: async ({ context }) => {
@@ -23,7 +24,7 @@ function RouteComponent() {
 	const handleGoogleSignIn = async () => {
 		await authClient.signIn.social({
 			provider: 'google',
-			callbackURL: '/dashboard',
+			callbackURL: '/app' satisfies LinkProps['to'],
 		});
 	};
 

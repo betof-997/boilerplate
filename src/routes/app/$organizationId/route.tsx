@@ -1,35 +1,45 @@
 import { Sidebar } from '@/components/sidebar';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { AuthenticatedSidebar } from './-lib/components/authenticated-sidebar';
 import { AccountDrawer } from '@/components/account-drawer';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getUserOrganizationsQueryOptions } from '@/query-options/organizationMemberQueryOptions';
+import { useUser } from '../-lib/hooks/use-user';
+import { useEffect } from 'react';
 
 export const Route = createFileRoute('/app/$organizationId')({
-	beforeLoad: async ({ context: { organizations }, params }) => {
+	component: OrganizationLayout,
+});
+
+function OrganizationLayout() {
+	const user = useUser();
+	const navigate = Route.useNavigate();
+	const params = Route.useParams();
+
+	const { data: organizations } = useSuspenseQuery(
+		getUserOrganizationsQueryOptions({
+			userId: user.id,
+		}),
+	);
+
+	useEffect(() => {
 		if (organizations.length === 0) {
-			throw redirect({ to: '/app/create-organization' });
+			navigate({ to: '/app/create-organization' });
+			return;
 		}
 
 		const selectedOrganization = organizations.find(
 			(organization) => organization.id === params.organizationId,
 		);
-
 		if (!selectedOrganization) {
-			throw redirect({
+			navigate({
 				to: '/app/$organizationId',
-				params: {
-					organizationId: organizations[0].id,
-				},
+				params: { organizationId: organizations[0].id },
 			});
+			return;
 		}
+	}, [organizations, navigate, params.organizationId]);
 
-		return {
-			selectedOrganization,
-		};
-	},
-	component: OrganizationLayout,
-});
-
-function OrganizationLayout() {
 	return (
 		<Sidebar.Root>
 			<AuthenticatedSidebar />

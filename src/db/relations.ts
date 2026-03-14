@@ -11,22 +11,20 @@ export const relations = defineRelations(tables, (r) => ({
 			from: r.organizationTable.id,
 			to: r.productTable.id,
 		}),
-		organizationMembers: r.many.organizationMemberTable({
-			from: r.organizationTable.id.through(
-				r.organizationMemberTable.organizationId,
-			),
-			to: r.organizationMemberTable.id.through(
-				r.organizationMemberTable.userId,
-			),
-		}),
-		members: r.many.userTable({
+		members: r.many.organizationMemberTable({
 			from: r.organizationTable.id,
-			to: r.userTable.id,
+			to: r.organizationMemberTable.organizationId,
+		}),
+		address: r.one.addressTable({
+			from: r.organizationTable.id,
+			to: r.addressTable.id,
 		}),
 	},
 	userTable: {
-		organizationMembers: r.many.organizationMemberTable(),
-		organizations: r.many.organizationTable(),
+		organizations: r.many.organizationMemberTable({
+			from: r.userTable.id,
+			to: r.organizationMemberTable.userId,
+		}),
 	},
 	organizationMemberTable: {
 		user: r.one.userTable({

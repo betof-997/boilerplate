@@ -1,8 +1,8 @@
-import { Page } from '@/components/page';
-import { useUser } from '@/routes/app/-lib/hooks/use-user/useUser';
 import { createFileRoute } from '@tanstack/react-router';
+import { useUser } from '../-lib/hooks/use-user';
+import { Page } from '@/components/page';
 
-export const Route = createFileRoute('/app/$organizationId/dashboard/')({
+export const Route = createFileRoute('/app/$organizationId/')({
 	component: DashboardPage,
 });
 
@@ -21,5 +21,5 @@ function DashboardPage() {
 				</div>
 			</Page.Content>
 		</Page.Root>
-	)
+	);
 }

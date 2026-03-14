@@ -5,6 +5,7 @@ export const organizationTable = s.sqliteTable('organization', {
 	id: u.idColumn(),
 
 	name: s.text().notNull(),
+	email: s.text().notNull(),
 
 	createdAt: u.createdAtColumn(),
 	updatedAt: u.updatedAtColumn(),
