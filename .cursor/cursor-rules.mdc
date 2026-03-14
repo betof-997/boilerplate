@@ -4,12 +4,12 @@ alwaysApply: true
 
 ## Project Overview
 
-this is a component lib that uses shadcn as a base for creating components
+This is a boilerplate project with components, auth and db integration
 
 ## Tech Stack
 
 - React 19+ with TypeScript
-- Tailwind CSS v4 for styling
+- Tailwind CSS v4
 - Pnpm
 - Biome
 
@@ -19,6 +19,7 @@ this is a component lib that uses shadcn as a base for creating components
 - pnpm run build: builds project with vite+nitro
 
 ## Warnings
+
 - do not run pnpm scripts unless told to
 - do not run the integrated browser unless told to
 
@@ -26,46 +27,17 @@ this is a component lib that uses shadcn as a base for creating components
 
 - Only put one React component per file, except for small helper
   components
-- Always write React components using TSX
-- Never use React.createElement unless bootstrapping the app outside of JSX
-- Component files must have the .tsx extension
 - Filenames must be written in PascalCase, for example DataTable.tsx
 - Folders must be written in kebab-case, for example data-table
 - Always use named exports for components, types, and utilities
 - Do not use default exports
-
-## Props and Component Structure
-
-- Prop names must always use camelCase
 - Explicitly declare true properties, like isActive={true}
-- Avoid to use an array index as a React key, try to always use a unique identifier
-- Non-callback props must first, sorted alphabetically
-- Callback props must come last, sorted alphabetically
+- Extract every type into a types.ts file
+- Use consts with arrow functions instead of regular functions
+- Don't use forwardRef for components that need ref forwarding. Use React 19 approach for ref as a prop.
 
 ## Code Quality
 
 - Do not add comments to code unless explicitly asked or very needed (e.g., complex business logic, non-obvious workarounds)
-- Always use TypeScript strict mode
-- Follow accessibility best practices
 - Use semantic HTML elements
 - Don't use `export * ...` or `import * ...`
-
-## Component Patterns
-
-- Don't use forwardRef for components that need ref forwarding. Use React 19 approach for ref as a prop.
-- Implement proper types for component props using typescript
-- Use Tailwind utility classes for styling
-- Follow consistent naming conventions (camelCase for props, kebab-case for CSS
-  classes)
-
-## Dependencies
-
-- Prefer built-in React features over external libraries
-- Use Tailwind CSS v4 for all styling needs
-- Keep dependencies minimal and focused
-
-## When creating components
-
-- Always manually create the component
-- Extract every type into a types.ts file
-- Use consts with arrow functions instead of regular functions
